@@ -1,9 +1,9 @@
 from flask import Flask,render_template
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
-from run import app
-from forms import createTweet
-from login import *
+from modules import app
+from modules.forms import createTweet
+from modules.login import *
 import datetime
 
 @app.route('/dashboard',methods=['GET','POST'])

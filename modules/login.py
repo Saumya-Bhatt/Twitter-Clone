@@ -2,9 +2,9 @@ from flask import Flask,render_template, redirect, url_for
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
-from run import app,db
-from modals import User_mgmt, Post
-from forms import Signup, Login
+from modules import app,db
+from modules.modals import User_mgmt, Post
+from modules.forms import Signup, Login
 
 
 login_manager = LoginManager()
