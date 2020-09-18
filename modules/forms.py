@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_login import current_user
 from wtforms import StringField, SubmitField, PasswordField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, Email, Length, ValidationError
 
@@ -29,3 +30,20 @@ class Login(FlaskForm):
 class createTweet(FlaskForm):
     tweet = TextAreaField('What is on your mind?',validators=[DataRequired(),Length(max=500)])
     submit = SubmitField('Tweet')
+
+class UpdateProfile(FlaskForm):
+    username = StringField('Username',validators=[DataRequired(),Length(min=4)])
+    email = StringField('Email',validators=[DataRequired(),Email()])
+    signup = SubmitField('Save Changes')
+
+    def validate_username(self,username):
+        if username.data != current_user.username:
+            user = User_mgmt.query.filter_by(username=username.data).first()
+            if user:
+                raise ValidationError('Username is already taken. Please choose a different one')
+
+    def validate_email(self,email):
+        if email.data != current_user.email:
+            user = User_mgmt.query.filter_by(email=email.data).first()
+            if user:
+                raise ValidationError('Account with this email ID already exists')

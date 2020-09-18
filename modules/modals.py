@@ -12,6 +12,9 @@ class User_mgmt(UserMixin, db.Model):
     email = db.Column(db.String(50),nullable=False,unique=True)
     password = db.Column(db.String(80),nullable=False)
     image_file = db.Column(db.String(20),nullable=False,default='default.jpg')
+    bg_file = db.Column(db.String(20),nullable=False,default='default_bg.jpg')
+    bio = db.Column(db.String(100))
+    date = db.Column(db.String(20))
     posts = db.relationship('Post',backref='author',lazy=True)
 
 class Post(db.Model):

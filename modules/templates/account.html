@@ -1,5 +1,19 @@
 {% extends 'mainPage.html' %}
 
 {% block pageContent %}
-<h1>{{ current_user.username }}</h1>
+<div style="position: relative;">
+    <img src="{{ background }}" alt="" class="bg_img">
+    <div class="profile">
+        <div class="profile_info">
+            <img src="{{ profile }}" alt="" class="profile_img">
+            <h2>@{{ current_user.username }}</h2>
+            <p class="light">{{ current_user.email }}</p>
+            {% if current_user.bio %}
+                <p>{{ current_user.bio }}</p>
+            {% endif %}
+            <p><img src="https://www.flaticon.com/svg/static/icons/svg/3003/3003280.svg" style="width: 17px; height: auto; margin-right: 10px;" alt="">Joined on {{ current_user.date }}</p>
+        </div>
+        <a href="#" class="edit_profile">Edit Profile</a>
+    </div>
+</div>
 {% endblock %}
