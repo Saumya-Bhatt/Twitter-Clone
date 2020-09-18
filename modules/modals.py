@@ -1,6 +1,10 @@
-from modules import db,app
+from modules import db,login_manager
 from flask_login import UserMixin
 from datetime import datetime
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User_mgmt.query.get(int(user_id))
 
 class User_mgmt(UserMixin, db.Model):
     id = db.Column(db.Integer,primary_key=True)
@@ -10,7 +14,7 @@ class User_mgmt(UserMixin, db.Model):
     image_file = db.Column(db.String(20),nullable=False,default='default.jpg')
     posts = db.relationship('Post',backref='author',lazy=True)
 
-class Post(UserMixin,db.Model):
+class Post(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     tweet = db.Column(db.String(500),nullable=False)
     stamp = db.Column(db.DateTime,nullable=False,default=datetime.utcnow)

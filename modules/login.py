@@ -1,23 +1,18 @@
 from flask import Flask,render_template, redirect, url_for
 from werkzeug.security import generate_password_hash,check_password_hash
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 
 from modules import app,db
 from modules.modals import User_mgmt, Post
 from modules.forms import Signup, Login
 
-
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = 'login'
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User_mgmt.query.get(int(user_id))  
-
 @app.route('/')
 @app.route('/home',methods=['GET','POST'])
 def home():
+
+    # add this to those routes which you want the user from going to if he/she is already logged in
+    #if current_user.is_authenticated:
+    #    return redirect(url_for(''))
 
     form_sign = Signup()
     form_login = Login()
@@ -44,7 +39,11 @@ def home():
 
 
 @app.route('/logout')
-@login_required
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+@app.route('/account')
+@login_required
+def account():
+    return render_template('account.html')
