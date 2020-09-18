@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter</title>
+    <link rel="shortcut icon" href="https://img.icons8.com/fluent/48/000000/twitter.png"/>
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'mainPage.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <ul>
+                <li><img src="https://www.flaticon.com/svg/static/icons/svg/733/733579.svg" alt="" style="width: 50px; height: auto; margin-bottom: 30px;"></li>
+                <li><img src="https://www.flaticon.com/svg/static/icons/svg/599/599305.svg" alt=""><a href="#">Profile</a></li>
+                <li><img src="https://www.flaticon.com/svg/static/icons/svg/3077/3077325.svg" alt=""><a href="#">Search</a></li>
+                <li><img src="https://www.flaticon.com/svg/static/icons/svg/1828/1828490.svg" alt=""><a href="{{ url_for('logout') }}">logout</a></li>
+            </ul>
+        </div>
+        <div class="posts">
+            {% block pageContent %}
+            {% endblock %}
+        </div>
+        <div class="info">
+            <div class="notice">
+                <h2 class="header">Hey there!</h1>
+                <p class="meta">It's good to see you back! Before you start tweeting, make sure to keep the following point in mind.</p>
+                <p>Let's not spread any hate. Please ensure that there are not any tweets which may hurt the sentiments of a person or a community. Else, we would be forced to take down your tweet.</p>
+                <p>That being said, don't hold back. Twitter was made to allow propogation of free speech. So start tweeting away!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

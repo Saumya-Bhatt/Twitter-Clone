@@ -1,0 +1,16 @@
+{% extends 'mainPage.html' %}
+
+{% block pageContent %}
+<h1 class="greeting">Welcome @{{ user }}!</h1>
+<p class='light' style="margin-left: 30px;">Tweet added to your timeline.</p>
+<div class="tweet">
+    <div class="userTweet">
+        <h3 style="margin-bottom: 0px;">@{{ user }}</h3>
+        <p style="font-size: 12px;"><span style="font-weight: bold; color: dodgerblue;">Posted at </span>{{ stamp }}</p>
+        <p>{{ tweet }}</p>
+    </div>
+</div>
+<br>
+<a class="submit_tweet" href="{{ url_for('dashboard') }}">Go back</a>
+
+{% endblock %}

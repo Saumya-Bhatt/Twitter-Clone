@@ -1,0 +1,86 @@
+body {
+    display: flex;
+    padding: 0px;
+    margin: 0px;
+}
+
+.image-bg {
+    background-color: rgba(29,161,242,1.00);
+    height: 100vh;
+    width: 50%;
+}
+.user-bg {
+    background-color: rgb(21, 32, 43);
+    height: 100vh;
+    width: 50%;
+}
+.about {
+    margin: 40% 20%;
+    color: whitesmoke;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+}
+.about ul {
+    list-style: none;
+}
+.about li {
+    margin-bottom: 20px;
+}
+.container {
+    margin-top: 50px;
+    color: whitesmoke;
+    font-weight: bold;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+}
+.intro {
+    font-size: 40px;
+    margin-left: 150px;
+}
+.form_control {
+    width: 50%;
+    margin: 10px auto;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    color: black;
+}
+.login_control {
+    width: 80%;
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    color: black;
+}
+.form_signup {
+    width: 40%;
+    margin: 10px auto;
+    padding: 10px 15px;
+    color: whitesmoke;
+    background-color: cornflowerblue;
+    border-radius: 20px;
+    border: none;
+    box-shadow: 1px 1px 5px darkslategray;
+}
+.login_btn {
+    width: 40%;
+    margin: 10px auto;
+    padding: 10px 15px;
+    color: whitesmoke;
+    background-color: cornflowerblue;
+    border-radius: 20px;
+    border: none;
+    box-shadow: 1px 1px 5px darkslategray; 
+}
+.icons {
+    width: 35px;
+    height: auto;
+    margin-right: 10px;
+}
+.twitter {
+    width: 60px; 
+    height: auto; 
+    margin-left: 150px; 
+    margin-bottom: 20px;
+}

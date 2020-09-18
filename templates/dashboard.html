@@ -1,0 +1,13 @@
+{% extends 'mainPage.html' %}
+
+{% block pageContent %}
+<h1 class="greeting">Welcome @{{ name }}!</h1>
+<div class="tweet">
+    <form action="{{ url_for('dashboard') }}" method="post">
+        {{tweet.csrf_token}}
+        {{tweet.tweet(class='tweet_pannel',placeholder="What's on your mind?")}}
+        {{tweet.submit(class='submit_tweet')}}
+    </form>
+</div>
+
+{% endblock %}

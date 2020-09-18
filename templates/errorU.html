@@ -1,0 +1,7 @@
+{% extends 'bool_base.html' %}
+
+{% block message %}
+<h1>Oop! Couldn't verify it's you :(</h1>
+<p>Looks like the entered Username is wrong or does not exist</p>
+<p>Go back to the <a href="{{ url_for('home') }}">start page</a> and try logging again</p>
+{% endblock %}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='start.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="shortcut icon" href="https://img.icons8.com/fluent/48/000000/twitter.png"/>
+</head>
+<body>
+    <div class="image-bg">
+        <div class="about">
+            <ul>
+                <li><img class="icons" src="https://image.flaticon.com/icons/svg/3176/3176330.svg" alt=""> Follow your interest</li>
+                <li><img src="https://image.flaticon.com/icons/svg/615/615075.svg" alt="" class="icons">Hear what people are talking about</li>
+                <li><img src="https://image.flaticon.com/icons/svg/3094/3094824.svg" alt="" class="icons">Join the conversation</li>
+            </ul>
+        </div>
+    </div>
+    <div class="user-bg">
+        <div class="container">
+            <img src="https://image.flaticon.com/icons/svg/733/733579.svg" class="twitter" alt="">
+            <div class="intro">See what's happening in <br> the world right now</div><br><br>
+            <p style="margin-left: 150px;">Join Twitter today</p>
+            <form action="{{ url_for('home') }}" class="form-group" style="margin-left: 150px;" method="post">
+                {{form1.csrf_token}}
+                {{form1.username(class='form_control',placeholder='Username')}}
+                {{form1.email(class='form_control',placeholder='Email')}}
+                {{form1.password(class='form_control',placeholder='Password')}} <br>
+                {{form1.signup(class='form_signup')}}
+            </form>
+            <p style="margin-left: 150px;">Already have an accont? 
+                <button type="button" class="btn btn-info btn-lg" class="login" style="background: none; font-weight: bold; font-size: 17px; color: dodgerblue; border: none; padding: 0px 4px;" data-toggle="modal" data-target="#myModal">Login</button>
+            </p>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                
+                <!-- Modal content-->
+                <div class="modal-content" style="background-color: rgb(21, 32, 43);">
+                    <div class="modal-header">
+                        <h4 class="modal-title" style="color: whitesmoke;">Welcome back!</h4>
+                    </div>
+                    <div class="modal-body" style="padding: 10px auto;">
+                        <p>It's great seeing you again!</p><br>
+                        <form action="{{ url_for('home') }}" class="form-group" method="post">
+                            {{form2.csrf_token}}
+                            {{form2.username(class='login_control',placeholder='Username')}}
+                            {{form2.password(class='login_control',placeholder='Password')}} <br>
+                             <p style="color: aquamarine;">{{form2.remember(placeholder='remember me')}} Remember me</p>
+                            {{form2.login(class='login_btn')}}
+                        </form>
+                    </div>
+                    <!--<div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>-->
+                </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
