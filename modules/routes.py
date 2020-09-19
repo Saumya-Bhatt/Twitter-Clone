@@ -1,6 +1,7 @@
-from flask import Flask,render_template, redirect, url_for, flash, request
+from flask import Flask,render_template, redirect, url_for, flash, request, abort
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import login_user, logout_user, current_user, login_required
+from sqlalchemy import desc
 
 from modules import app,db
 from modules.modals import User_mgmt, Post
@@ -56,8 +57,9 @@ def account():
     update = UpdateProfile()
     profile_pic = url_for('static',filename='profile_pics/' + current_user.image_file)
     bg_pic = url_for('static',filename='profile_pics/' + current_user.bg_file)
+    all_posts = Post.query.filter_by(user_id=current_user.id).order_by(desc(Post.id))
 
-    return render_template('account.html',profile=profile_pic,background=bg_pic,update=update)
+    return render_template('account.html',profile=profile_pic,background=bg_pic,update=update,timeline=all_posts)
 
     
 
@@ -76,7 +78,7 @@ def dashboard():
 
         return redirect(url_for('dashboard'))
 
-    posts = Post.query.all()
+    posts = Post.query.order_by(desc(Post.id))
     return render_template('dashboard.html',name = current_user.username,tweet = user_tweet, timeline=posts)
 
 
@@ -118,3 +120,22 @@ def updateInfo():
         update.bio.data = current_user.bio
 
     return render_template('updateProfile.html',change_form=update)
+
+
+@app.route('/delete/<int:post_id>')
+@login_required
+def delete(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    return render_template('delete_post.html',post=post)
+
+@app.route('/delete_post/<int:post_id>',methods=['POST'])
+@login_required
+def delete_tweet(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('dashboard'))

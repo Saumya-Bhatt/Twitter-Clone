@@ -101,6 +101,10 @@ a :hover {
 .tweet {
     border-bottom: 10px solid  rgba(29,161,242,0.2) ;
     padding: 20px 30px;
+    display: flex;
+}
+.userTweet {
+    width: 100%;
 }
 .meta_tweet {
     display: flex;
@@ -160,6 +164,11 @@ a :hover {
     color: whitesmoke;
     transition: 0.2s;
 }
+.seperator {
+    padding-left: 50px;
+    margin-top: 30px;
+    border-top: 1px solid gray;
+}
 
 .update_info {
     width: 89%;
@@ -203,4 +212,43 @@ a :hover {
     width: 80%;
     margin-left: 10px;
     margin-right: 20px;
+}
+
+
+.alert {
+    padding: 20px 50px 0px 50px;
+}
+.sample {
+    padding: 10px 30px;
+    border:  1px solid rgba(29,161,242,1);
+    background-color: rgba(29,161,242,0.2);
+    border-radius: 20px;
+    margin: 30px;
+}
+.choice {
+    display: flex;
+}
+.danger {
+    background-color: tomato;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin: auto 30px;
+    color: whitesmoke;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+}
+.danger:hover {
+    background-color: indianred;
+    transition: 0.2s;
+}
+.neutral {
+    background-color: dodgerblue;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin: auto 30px;
+}
+.neutral:hover {
+    background-color: royalblue;
+    transition: 0.2s;
 }

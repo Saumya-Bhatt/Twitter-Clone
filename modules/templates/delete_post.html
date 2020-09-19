@@ -1,0 +1,30 @@
+{% extends 'mainPage.html' %}
+
+{% block pageContent %}
+
+    <div class="alert">
+        <h3>Are you sure you want to delete this?</h3>
+        <p>You are deleting the below post. You won't be able to recover it once it has been deleted</p>
+    </div>
+
+    <div class="sample">
+        <div class="userTweet">
+            <div class="meta_tweet">
+                <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" style="width:50px; height: 50px; border-radius: 50%; margin-right: 10px; margin-top: 20px;" alt="">
+                <div>
+                    <h3 style="margin-bottom: 0px;">@{{ post.author.username }}</h3>
+                    <p style="font-size: 12px;"><span style="font-weight: bold; color: dodgerblue;">Posted on </span>{{ post.stamp }}</p>
+                </div>
+            </div>
+            <p style="margin-top: 5px;">{{ post.tweet }}</p>
+        </div>
+    </div>
+
+    <div class="choice alert">
+        <form action="{{ url_for('delete_tweet',post_id=post.id) }}" method="post">
+            <input type="submit" class="danger" value="Yes, delete this tweet"></input>
+        </form>
+        <div class="neutral"><a href="{{ url_for('dashboard') }}">No, Cancel this step</a></div>
+    </div>
+
+{% endblock %}
