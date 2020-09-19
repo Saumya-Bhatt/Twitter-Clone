@@ -1,4 +1,4 @@
-from flask import Flask,render_template, redirect, url_for
+from flask import Flask,render_template, redirect, url_for, flash, request
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import login_user, logout_user, current_user, login_required
 
@@ -7,7 +7,8 @@ from modules.modals import User_mgmt, Post
 from modules.forms import Signup, Login, UpdateProfile, createTweet
 
 import datetime
-
+import secrets
+import os
 
 @app.route('/')
 @app.route('/home',methods=['GET','POST'])
@@ -21,6 +22,7 @@ def home():
     form_login = Login()
 
     if form_sign.validate_on_submit():
+
         hashed_password = generate_password_hash(form_sign.password.data, method='sha256')
         x = datetime.datetime.now()
         creation = str(x.strftime("%B")) +" "+ str(x.strftime("%Y")) 
@@ -64,7 +66,55 @@ def account():
 def dashboard():
     user_tweet = createTweet()
     if user_tweet.validate_on_submit():
+
         x = datetime.datetime.now()
         currentTime = str(x.strftime("%d")) +" "+ str(x.strftime("%B")) +"'"+ str(x.strftime("%y")) + " "+ str(x.strftime("%I")) +":"+ str(x.strftime("%M")) +" "+ str(x.strftime("%p"))
-        return render_template('tweet.html',tweet = user_tweet.tweet.data, user = current_user.username, stamp = currentTime)
-    return render_template('dashboard.html',name = current_user.username,tweet = user_tweet)
+
+        post = Post(tweet=user_tweet.tweet.data, stamp=currentTime, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+
+        return redirect(url_for('dashboard'))
+
+    posts = Post.query.all()
+    return render_template('dashboard.html',name = current_user.username,tweet = user_tweet, timeline=posts)
+
+
+def save_picture(form_pic):
+    random_hex = secrets.token_hex(8)
+    f_name,f_ext = os.path.splitext(form_pic.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+    form_pic.save(picture_path)
+    return picture_fn
+
+@app.route('/UpdateInfo',methods=['GET','POST'])
+@login_required
+def updateInfo():
+
+    update = UpdateProfile()
+    if update.validate_on_submit():
+        if update.profile.data:
+            profile_img = save_picture(update.profile.data)
+            current_user.image_file = profile_img
+        if update.profile_bg.data:
+            profile_bg_img = save_picture(update.profile_bg.data)
+            current_user.bg_file = profile_bg_img
+        if update.bday.data:
+            current_user.bday = update.bday.data
+
+        current_user.username = update.username.data
+        current_user.email = update.email.data
+        current_user.bio = update.bio.data
+        db.session.commit()
+
+        flash('Your account has been updated!','success')
+        return redirect(url_for('account'))
+
+    elif request.method == 'GET':
+
+        update.username.data = current_user.username
+        update.email.data = current_user.email
+        update.bio.data = current_user.bio
+
+    return render_template('updateProfile.html',change_form=update)

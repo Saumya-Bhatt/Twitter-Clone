@@ -12,6 +12,26 @@ a {
 a :hover {
     color: dodgerblue;
 }
+.flash {
+    color: rgba(29,161,242,0.5);
+    border: 1px solid rgba(29,161,242,0.5);
+    background-color: rgba(29,161,242,0.1);
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-weight: lighter;
+    width: fit-content;
+}
+.error {
+    border-radius: 20px;
+    border:  1px solid orange;
+    background-color: rgba(255,165,0,0.2);
+    color:  orange;
+    padding: 5px 15px;
+    width: fit-content;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 12px;
+}
 .container {
     display: flex;
 }
@@ -21,6 +41,9 @@ a :hover {
     text-align: right;
     border-right: 1px solid gray;
     height: 100vh;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
 }
 .navbar ul > li {
     list-style: none;
@@ -28,6 +51,9 @@ a :hover {
     font-weight: bold;
     margin-bottom: 20px;
     margin-right: 70px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
 }
 .navbar ul > li :hover {
     color: dodgerblue;
@@ -74,14 +100,23 @@ a :hover {
 }
 .tweet {
     border-bottom: 10px solid  rgba(29,161,242,0.2) ;
-    padding: 30px;
+    padding: 20px 30px;
+}
+.meta_tweet {
+    display: flex;
 }
 .info {
     padding: 20px;
     width: 20%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
 }
 .notice {
     padding: 20px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
 }
 .light {
     font-size: 15px;
@@ -104,10 +139,11 @@ a :hover {
     width: 150px;
     height: auto;
     border-radius: 50%;
+    border:  5px solid  rgba(29,161,242,1);
 }
 .bg_img {
     width: 100%;
-    height: 250px;
+    height:300px;
     position: absolute;
 }
 .edit_profile {
@@ -123,4 +159,48 @@ a :hover {
     background-color: rgba(29,161,242,1);
     color: whitesmoke;
     transition: 0.2s;
+}
+
+.update_info {
+    width: 89%;
+    margin: 30px;
+    padding: 20px;
+    border-radius: 30px;
+    border: 2px solid rgba(29,161,242,1);
+}
+.header {
+    font-weight: bold;
+    font-size: 17px;
+    margin-top: 10px;
+}
+.update_field {
+    width: 90%;
+    padding: 15px 30px;
+    background-color: rgba(29,161,242,0.2);
+    border-radius: 20px;
+    border: none;
+    margin-bottom: 10px;
+    color: whitesmoke;
+    font-size: 17px;
+}
+.update_save {
+    background-color: rgba(29,161,242,1);
+    color: whitesmoke;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-weight: bold;
+    border: none;
+}
+.update_save:hover {
+    background-color: rgba(29,161,242,0.2);
+    transition: 0.2s;
+    cursor: pointer;
+}
+.profile_section {
+    display: flex;
+}
+.prof_sec {
+    width: 80%;
+    margin-left: 10px;
+    margin-right: 20px;
 }

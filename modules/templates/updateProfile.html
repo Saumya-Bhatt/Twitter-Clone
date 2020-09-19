@@ -1,0 +1,74 @@
+{% extends 'mainPage.html' %}
+
+{% block pageContent %}
+<div class="update_info">
+    <h2>Account Information</h2>
+    <p>Update your username, email or bio over here. Make sure to save changes.</p>
+    <br>
+    <form action="{{ url_for('updateInfo') }}" method="post" enctype="multipart/form-data">
+
+        {{ change_form.csrf_token }}
+
+        <div class="profile_section">
+            {{ change_form.username.label(class='header') }}
+            {{ change_form.username(class='prof_sec update_field') }}
+            {{ change_form.email.label(class='header') }}
+            {{ change_form.email(class='prof_sec update_field') }}
+        </div>
+
+        {% if change_form.username.errors %}
+            {% for error in change_form.username.errors %}
+                <span class="error">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+        {% if change_form.email.errors %}
+            {% for error in change_form.email.errors %}
+                <span class="error">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+
+        <br><br>
+        {{ change_form.bio.label(class='header') }}
+        <br><br>
+        {{ change_form.bio(class='update_field') }}
+        <br><br><br>
+
+        <div class="profile_section">
+            <div>
+                {{ change_form.profile.label(class='header') }}
+                <br><br>
+                {{ change_form.profile }}
+                {% if change_form.profile.errors %}
+                    {% for error in change_form.profile.errors %}
+                        <span class="error">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div>
+                {{ change_form.profile_bg.label(class='header') }}
+                <br><br>
+                {{ change_form.profile_bg }}
+                {% if change_form.profile_bg.errors %}
+                    {% for error in change_form.profile_bg.errors %}
+                        <span class="error">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div>
+                {{ change_form.bday.label(class='header') }}
+                <br><br>
+                {{ change_form.bday(class='update_field', placeholder='dd-mm-yyyy') }}
+                {% if change_form.bday.errors %}
+                    {% for error in change_form.bday.errors %}
+                        <span class="error">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+        <br><br>
+        {{ change_form.save(class='update_save') }}
+
+    </form>
+</div>
+{% endblock %}

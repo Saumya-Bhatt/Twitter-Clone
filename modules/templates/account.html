@@ -9,11 +9,25 @@
             <h2>@{{ current_user.username }}</h2>
             <p class="light">{{ current_user.email }}</p>
             {% if current_user.bio %}
-                <p>{{ current_user.bio }}</p>
+                <p style="margin-bottom: 2px;">{{ current_user.bio }}</p>
             {% endif %}
-            <p><img src="https://www.flaticon.com/svg/static/icons/svg/3003/3003280.svg" style="width: 17px; height: auto; margin-right: 10px;" alt="">Joined on {{ current_user.date }}</p>
+
+            <div style="display: flex; color: gray;">
+                <p><img src="https://www.flaticon.com/svg/static/icons/svg/3003/3003280.svg" style="width: 17px; height: auto; margin-right: 10px;" alt="">Joined on {{ current_user.date }}</p>
+                {% if current_user.bday %}
+                    <p><img src="https://www.flaticon.com/svg/static/icons/svg/3159/3159408.svg" style="width: 17px; height: auto; margin-right: 10px; margin-left: 20px;" alt="">Born {{ current_user.bday }}</p>
+                {% endif %}
+            </div>
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                    {% for message in messages %}
+                    <div class="flash">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
         </div>
-        <a href="#" class="edit_profile">Edit Profile</a>
+        <a href="{{ url_for('updateInfo') }}" class="edit_profile">Edit Profile</a>
     </div>
 </div>
 {% endblock %}
