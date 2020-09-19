@@ -28,6 +28,14 @@
                 <p class="meta">It's good to see you back! Before you start tweeting, make sure to keep the following point in mind.</p>
                 <p>Let's not spread any hate. Please ensure that there are not any tweets which may hurt the sentiments of a person or a community. Else, we would be forced to take down your tweet.</p>
                 <p>That being said, don't hold back. Twitter was made to allow propogation of free speech. So start tweeting away!</p>
+                <br>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                            {% for message in messages %}
+                            <div class="flash">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                {% endwith %}
             </div>
         </div>
     </div>

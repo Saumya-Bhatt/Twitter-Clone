@@ -1,0 +1,25 @@
+{% extends 'mainPage.html' %}
+
+{% block pageContent %}
+
+    <div class="alert">
+        <h3>Are you sure you want to deactivate your account?</h3>
+        <p>The following protocols will be in effect on account deletion. Are you sure you want to proceed?</p>
+        <br>
+        <ul>
+            <li>Your account information will be deleted.</li>
+            <li>All your tweets will be deleted.</li>
+            <li>You will no longer be visible to other people.</li>
+        </ul>
+        <br>
+        <p>This changes would be permanent. Are you sure you want to deactivate your account?</p>
+    </div>
+
+    <div class="choice alert">
+        <form action="{{ url_for('delete_account',account_id=current_user.id) }}" method="post">
+            <input type="submit" class="danger" value="Yes I understand, deactivate account"></input>
+        </form>
+        <div class="neutral"><a href="{{ url_for('dashboard') }}">No, I have changed my mind</a></div>
+    </div>
+
+{% endblock %}

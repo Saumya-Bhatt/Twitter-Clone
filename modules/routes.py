@@ -75,7 +75,7 @@ def dashboard():
         post = Post(tweet=user_tweet.tweet.data, stamp=currentTime, author=current_user)
         db.session.add(post)
         db.session.commit()
-
+        flash('The Tweet was added to your timeline!','success')
         return redirect(url_for('dashboard'))
 
     posts = Post.query.order_by(desc(Post.id))
@@ -138,4 +138,22 @@ def delete_tweet(post_id):
         abort(403)
     db.session.delete(post)
     db.session.commit()
+    flash('Your tweet was deleted!','success')
     return redirect(url_for('dashboard'))
+
+
+@app.route('/deactivate_confirmation')
+@login_required
+def deactivate_confirm():
+    return render_template('deact_conf.html')
+
+@app.route('/account_deleted/<int:account_id>',methods=['POST'])
+@login_required
+def delete_account(account_id):
+    all_post = Post.query.filter_by(user_id=current_user.id)
+    for i in all_post:
+        db.session.delete(i)
+    del_acc = User_mgmt.query.filter_by(id=account_id).first()
+    db.session.delete(del_acc)
+    db.session.commit()
+    return redirect(url_for('home'))

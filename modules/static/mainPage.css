@@ -64,6 +64,14 @@ a :hover {
     height: auto;
     margin-right: 15px;
 }
+.deactivate {
+    text-align: center;
+    color: tomato;
+}
+
+
+
+
 .posts {
     border-right: 1px solid grey;
     width: 70%;
@@ -81,7 +89,7 @@ a :hover {
     border: none;
     color: white;
     font-size: 17px;
-    width: 80%;
+    width: 200%;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
 .submit_tweet {
@@ -217,6 +225,9 @@ a :hover {
 
 .alert {
     padding: 20px 50px 0px 50px;
+}
+.alert ul > li {
+    margin: 10px;
 }
 .sample {
     padding: 10px 30px;

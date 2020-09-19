@@ -18,35 +18,32 @@
                     <p><img src="https://www.flaticon.com/svg/static/icons/svg/3159/3159408.svg" style="width: 17px; height: auto; margin-right: 10px; margin-left: 20px;" alt="">Born {{ current_user.bday }}</p>
                 {% endif %}
             </div>
-
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                    {% for message in messages %}
-                    <div class="flash">{{ message }}</div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
+            <a class="deactivate" href="{{ url_for('deactivate_confirm') }}">Deactivate Account</a>
+            
         </div>
         <a href="{{ url_for('updateInfo') }}" class="edit_profile">Edit Profile</a>
     </div>
 </div>
 
-<div class="timeline" style="margin-top: 550px;">
+<div class="timeline" style="margin-top:600px;">
     <div class="seperator"></div>
-    {% for post in timeline %}
-        <div class="tweet">
-            <div class="userTweet">
-                <div class="meta_tweet">
-                    <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" style="width:50px; height: 50px; border-radius: 50%; margin-right: 10px; margin-top: 20px;" alt="">
-                    <div>
-                        <h3 style="margin-bottom: 0px;">@{{ post.author.username }}</h3>
-                        <p style="font-size: 12px;"><span style="font-weight: bold; color: dodgerblue;">Posted at </span>{{ post.stamp }}</p>
+        {% for post in timeline %}
+            <div class="tweet">
+                <div class="userTweet">
+                    <div class="meta_tweet">
+                        <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" style="width:50px; height: 50px; border-radius: 50%; margin-right: 10px; margin-top: 20px;" alt="">
+                        <div>
+                            <h3 style="margin-bottom: 0px;">@{{ post.author.username }}</h3>
+                            <p style="font-size: 12px;"><span style="font-weight: bold; color: dodgerblue;">Posted at </span>{{ post.stamp }}</p>
+                        </div>
                     </div>
+                    <p style="margin-top: 5px;">{{ post.tweet }}</p>
                 </div>
-                <p style="margin-top: 5px;">{{ post.tweet }}</p>
+                <a href="{{ url_for('delete',post_id=post.id) }}">
+                    <img src="https://www.flaticon.com/svg/static/icons/svg/3143/3143570.svg" style="width: 20px; height: auto; margin-bottom: 50px;" alt="">
+                </a>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
 </div>
 
 {% endblock %}
