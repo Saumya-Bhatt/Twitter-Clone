@@ -1,0 +1,43 @@
+{% extends 'mainPage.html' %}
+
+{% block pageContent %}
+<div style="position: relative;">
+    <img src="{{ background }}" alt="" class="bg_img">
+    <div class="profile">
+        <div class="profile_info">
+            <img src="{{ profile }}" alt="" class="profile_img">
+            <h2>@{{ user.username }}</h2>
+            <p class="light">{{ user.email }}</p>
+            {% if user.bio %}
+                <p style="margin-bottom: 2px;">{{ user.bio }}</p>
+            {% endif %}
+
+            <div style="display: flex; color: gray;">
+                <p><img src="https://www.flaticon.com/svg/static/icons/svg/3003/3003280.svg" style="width: 17px; height: auto; margin-right: 10px;" alt="">Joined on {{ user.date }}</p>
+                {% if user.bday %}
+                    <p><img src="https://www.flaticon.com/svg/static/icons/svg/3159/3159408.svg" style="width: 17px; height: auto; margin-right: 10px; margin-left: 20px;" alt="">Born {{ user.bday }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="timeline" style="margin-top:550px;">
+    <div class="seperator"></div>
+        {% for post in timeline %}
+            <div class="tweet">
+                <div class="userTweet">
+                    <div class="meta_tweet">
+                        <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" style="width:50px; height: 50px; border-radius: 50%; margin-right: 10px; margin-top: 20px;" alt="">
+                        <div>
+                            <h3 style="margin-bottom: 0px;">@{{ post.author.username }}</h3>
+                            <p style="font-size: 12px;"><span style="font-weight: bold; color: dodgerblue;">Posted at </span>{{ post.stamp }}</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 5px;">{{ post.tweet }}</p>
+                </div>
+            </div>
+        {% endfor %}
+</div>
+
+{% endblock %}

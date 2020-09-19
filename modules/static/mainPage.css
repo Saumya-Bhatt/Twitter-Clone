@@ -92,6 +92,17 @@ a :hover {
     width: 200%;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
+.retweet_pannel {
+    padding: 20px 30px;
+    background-color: rgba(29,161,242,0.1);
+    border: none;
+    color: white;
+    font-size: 17px;
+    width: 87%;
+    margin-left: 30px;
+    border-radius: 20px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+}
 .submit_tweet {
     border: none;
     background-color: dodgerblue;
@@ -133,6 +144,13 @@ a :hover {
 .light {
     font-size: 15px;
     color: gray;
+}
+.username:hover {
+    text-decoration: underline;
+}
+.filter_white {
+    filter: invert(100%) sepia(2%) saturate(0%) hue-rotate(165deg) brightness(103%) contrast(107%);
+    width: 20px; height: auto; margin-right: 30px;
 }
 
 

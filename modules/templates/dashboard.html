@@ -17,14 +17,17 @@
                 <div class="meta_tweet">
                     <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" style="width:50px; height: 50px; border-radius: 50%; margin-right: 10px; margin-top: 20px;" alt="">
                     <div>
-                        <h3 style="margin-bottom: 0px;">@{{ post.author.username }}</h3>
+                        <h3 style="margin-bottom: 0px;"><a class="username" href="{{ url_for('viewProfile',account_id=post.author.id) }}"> @{{ post.author.username }}</a></h3>
                         <p style="font-size: 12px;"><span style="font-weight: bold; color: dodgerblue;">Posted on </span>{{ post.stamp }}</p>
                     </div>
                 </div>
                 <p style="margin-top: 5px;">{{ post.tweet }}</p>
             </div>
+            <a href="{{ url_for('retweet',post_id=post.id) }}">
+                <img src="{{ url_for('static', filename='Images/retweet.svg') }}" class="filter_white" alt="">
+            </a>
             <a href="{{ url_for('delete',post_id=post.id) }}">
-                <img src="https://www.flaticon.com/svg/static/icons/svg/3143/3143570.svg" style="width: 20px; height: auto; margin-bottom: 50px;" alt="">
+                <img src="{{ url_for('static', filename='Images/delete.svg') }}" class="filter_white" alt="">
             </a>
         </div>
     {% endfor %}

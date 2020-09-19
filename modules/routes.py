@@ -157,3 +157,25 @@ def delete_account(account_id):
     db.session.delete(del_acc)
     db.session.commit()
     return redirect(url_for('home'))
+
+
+
+@app.route('/view_profile/<int:account_id>',methods=['GET','POST'])
+@login_required
+def viewProfile(account_id):
+    if account_id == current_user.id:
+        return redirect(url_for('account'))
+    get_user = User_mgmt.query.filter_by(id=account_id).first()
+    profile_pic = url_for('static',filename='profile_pics/' + get_user.image_file)
+    bg_pic = url_for('static',filename='profile_pics/' + get_user.bg_file)
+    all_posts = Post.query.filter_by(user_id=get_user.id).order_by(desc(Post.id))
+
+    return render_template('view_profile.html',profile=profile_pic,background=bg_pic,timeline=all_posts,user=get_user)
+
+
+@app.route('/retweet/<int:post_id>',methods=['GET','POST'])
+@login_required
+def retweet(post_id):
+    post = Post.query.get_or_404(post_id)
+    new_tweet = createTweet()
+    return render_template('retweet.html',post=post, tweet=new_tweet)
