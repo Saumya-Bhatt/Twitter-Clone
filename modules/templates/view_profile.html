@@ -36,6 +36,9 @@
                     </div>
                     <p style="margin-top: 5px;">{{ post.tweet }}</p>
                 </div>
+                <a href="{{ url_for('retweet',post_id=post.id) }}">
+                    <img src="{{ url_for('static', filename='Images/retweet.svg') }}" class="filter_white" alt="">
+                </a>
             </div>
         {% endfor %}
 </div>

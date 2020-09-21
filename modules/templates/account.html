@@ -40,7 +40,7 @@
                     <p style="margin-top: 5px;">{{ post.tweet }}</p>
                 </div>
                 <a href="{{ url_for('delete',post_id=post.id) }}">
-                    <img src="https://www.flaticon.com/svg/static/icons/svg/3143/3143570.svg" style="width: 20px; height: auto; margin-bottom: 50px;" alt="">
+                    <img src="{{ url_for('static', filename='Images/delete.svg') }}" class="filter_white" alt="">
                 </a>
             </div>
         {% endfor %}
