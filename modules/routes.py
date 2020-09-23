@@ -176,6 +176,21 @@ def viewProfile(account_id):
 @app.route('/retweet/<int:post_id>',methods=['GET','POST'])
 @login_required
 def retweet(post_id):
+
     post = Post.query.get_or_404(post_id)
     new_tweet = createTweet()
+
+    if new_tweet.validate_on_submit():
+
+        x = datetime.datetime.now()
+        currentTime = str(x.strftime("%d")) +" "+ str(x.strftime("%B")) +"'"+ str(x.strftime("%y")) + " "+ str(x.strftime("%I")) +":"+ str(x.strftime("%M")) +" "+ str(x.strftime("%p"))
+
+        retweet = Post(tweet=new_tweet.tweet.data,stamp=currentTime, author=current_user,retweet_tweet=post.tweet,retweet_stamp=post.stamp,retweet_author=post.author.username,retweet_id=post.author.id)
+        db.session.add(retweet)
+        db.session.commit()
+
+        msg = 'You retweeted @'+post.author.username+"'s tweet!"
+        flash(msg,'success')
+        return redirect(url_for('dashboard'))
+
     return render_template('retweet.html',post=post, tweet=new_tweet)

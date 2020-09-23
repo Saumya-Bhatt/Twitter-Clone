@@ -23,3 +23,7 @@ class Post(db.Model):
     tweet = db.Column(db.String(500),nullable=False)
     stamp = db.Column(db.String(20),nullable=False)
     user_id = db.Column(db.Integer,db.ForeignKey('user_mgmt.id'),nullable=False)
+    retweet_tweet = db.Column(db.String(500),default=None)
+    retweet_stamp = db.Column(db.String(20),default=None)
+    retweet_author = db.Column(db.String(20),default=None)
+    retweet_id = db.Column(db.Integer)

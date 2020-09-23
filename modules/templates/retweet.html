@@ -4,11 +4,7 @@
 
     <div class="alert">
         <h3>Retweet this post?</h3>
-        <p>Add your own comment if you want.</p>
     </div>
-
-    {{ tweet.csrf_token }}
-    {{tweet.tweet(class='retweet_pannel')}}
 
     <div class="sample">
         <div class="userTweet">
@@ -24,7 +20,12 @@
     </div>
 
     <div class="choice alert">
-        {{tweet.submit(class='submit_tweet',value='Retweet this post')}}
+        <form action="{{ url_for('retweet',post_id=post.id) }}" method="post">
+            {{ tweet.csrf_token }}
+            <p>Add your own comment if you want.</p>
+            {{tweet.tweet(class='retweet_pannel')}}
+            {{tweet.submit(class='submit_tweet',value='Retweet this post')}}
+        </form>
     </div>
 
 {% endblock %}
