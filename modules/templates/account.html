@@ -27,23 +27,98 @@
 
 <div class="timeline" style="margin-top:600px;">
     <div class="seperator"></div>
-        {% for post in timeline %}
+
+        {% for post in timeline.items %}
+
             <div class="tweet">
                 <div class="userTweet">
                     <div class="meta_tweet">
-                        <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" style="width:50px; height: 50px; border-radius: 50%; margin-right: 10px; margin-top: 20px;" alt="">
+                        <img src="{{ url_for('static', filename='Images/Users/profile_pics/' + post.author.image_file) }}" style="width:50px; height: 50px; border-radius: 50%; margin-right: 10px; margin-top: 20px;" alt="">
                         <div>
-                            <h3 style="margin-bottom: 0px;">@{{ post.author.username }}</h3>
-                            <p style="font-size: 12px;"><span style="font-weight: bold; color: dodgerblue;">Posted at </span>{{ post.stamp }}</p>
+                            <h3 style="margin-bottom: 0px;"><a class="username" href="{{ url_for('viewProfile',account_id=post.author.id) }}"> @{{ post.author.username }}</a></h3>
+                            <p style="font-size: 12px;"><span style="font-weight: bold; color: dodgerblue;">Posted on </span>{{ post.stamp }}</p>
                         </div>
                     </div>
                     <p style="margin-top: 5px;">{{ post.tweet }}</p>
                 </div>
+                <a href="{{ url_for('retweet',post_id=post.id) }}">
+                    <img src="{{ url_for('static', filename='Images/SVG/retweet.svg') }}" class="filter_white" alt="">
+                </a>
                 <a href="{{ url_for('delete',post_id=post.id) }}">
-                    <img src="{{ url_for('static', filename='Images/delete.svg') }}" class="filter_white" alt="">
+                    <img src="{{ url_for('static', filename='Images/SVG/delete.svg') }}" class="filter_white" alt="">
                 </a>
             </div>
+
+    {% endfor %}
+
+    {% for retweets in retweets %}
+
+        <div class="tweet">
+            <div class="userTweet">
+                <div class="meta_tweet">
+                    <img src="{{ url_for('static', filename='Images/Users/profile_pics/' + retweets.retwitter.image_file) }}" style="width:50px; height: 50px; border-radius: 50%; margin-right: 10px; margin-top: 20px;" alt="">
+                    <div>
+                        <h3 style="margin-bottom: 0px;"><a class="username" href="{{ url_for('viewProfile',account_id=retweets.retwitter.id) }}"> @{{ retweets.retwitter.username }}</a></h3>
+                        <p style="font-size: 12px;"><span style="font-weight: bold; color: dodgerblue;">Posted on </span>{{ retweets.retweet_stamp }}</p>
+                    </div>
+                </div>
+                <p style="margin-top: 5px;">{{ retweets.retweet_text }}</p>
+
+                <div class="retweet_post">
+
+                    {% if retweets.ori_post %}
+                        <div class="userTweet">
+                            <div class="meta_tweet">
+                                <img src="{{ url_for('static', filename='Images/Users/profile_pics/' + retweets.ori_post.author.image_file) }}" style="width:50px; height: 50px; border-radius: 50%; margin-right: 10px; margin-top: 20px;" alt="">
+                                <div>
+                                    <div style="display: flex;">
+                                        <h3 style="margin-bottom: 0px;"><a class="username" href="{{ url_for('viewProfile',account_id=retweets.ori_post.author.id) }}"> @{{ retweets.ori_post.author.username }}</a></h3>
+                                        <a href="{{ url_for('retweet',post_id=retweets.ori_post.id) }}">
+                                            <img src="{{ url_for('static', filename='Images/SVG/retweet.svg') }}" style="margin: 20px 30px 0px 30px;" class="filter_white" alt="">
+                                        </a>
+                                    </div>
+                                    <p style="font-size: 12px;"><span style="font-weight: bold; color: dodgerblue;">Posted on </span>{{ retweets.ori_post.stamp }}}</p>
+                                </div>
+                            </div>
+                            <p style="margin-top: 5px;">{{ retweets.ori_post.tweet }}</p>
+                        </div>
+                    {% else %}
+                        <p style='font-style:italic; opacity:0.5'>This tweet was deleted by it's original author</p>
+                    {% endif %}
+                </div>
+
+            </div>
+            <a href="{{ url_for('retweet',post_id=retweets.id) }}">
+                <img src="{{ url_for('static', filename='Images/SVG/retweet.svg') }}" class="filter_white" alt="">
+            </a>
+            <a href="{{ url_for('delete_retweet',post_id=retweets.id) }}">
+                <img src="{{ url_for('static', filename='Images/SVG/delete.svg') }}" class="filter_white" alt="">
+            </a>
+
+            <br>
+
+
+
+        </div>
+
+
+    {% endfor %}
+
+    <div class="pagination">
+        {% for page_num in timeline.iter_pages(left_edge=2,right_edge=2,left_current=1,right_current=2) %}
+            {% if page_num %}
+                {% if timeline.page == page_num %}
+                    <a class="active_page" href="{{ url_for('dashboard',page=page_num) }}">{{ page_num }}</a>
+                {% else %}
+                    <a class='pages' href="{{ url_for('dashboard',page=page_num) }}">{{ page_num }}</a>
+                {% endif %}
+            {% else %}
+                ...
+            {% endif %}
         {% endfor %}
+    </div>
+
+
 </div>
 
 {% endblock %}

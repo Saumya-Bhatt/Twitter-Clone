@@ -9,7 +9,7 @@
     <div class="sample">
         <div class="userTweet">
             <div class="meta_tweet">
-                <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" style="width:50px; height: 50px; border-radius: 50%; margin-right: 10px; margin-top: 20px;" alt="">
+                <img src="{{ url_for('static', filename='Images/Users/profile_pics/' + post.author.image_file) }}" style="width:50px; height: 50px; border-radius: 50%; margin-right: 10px; margin-top: 20px;" alt="">
                 <div>
                     <h3 style="margin-bottom: 0px;">@{{ post.author.username }}</h3>
                     <p style="font-size: 12px;"><span style="font-weight: bold; color: dodgerblue;">Posted on </span>{{ post.stamp }}</p>

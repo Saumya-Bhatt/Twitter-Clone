@@ -7,24 +7,81 @@
         <p>You are deleting the below post. You won't be able to recover it once it has been deleted</p>
     </div>
 
-    <div class="sample">
-        <div class="userTweet">
-            <div class="meta_tweet">
-                <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" style="width:50px; height: 50px; border-radius: 50%; margin-right: 10px; margin-top: 20px;" alt="">
-                <div>
-                    <h3 style="margin-bottom: 0px;">@{{ post.author.username }}</h3>
-                    <p style="font-size: 12px;"><span style="font-weight: bold; color: dodgerblue;">Posted on </span>{{ post.stamp }}</p>
-                </div>
-            </div>
-            <p style="margin-top: 5px;">{{ post.tweet }}</p>
-        </div>
-    </div>
+    {% if post %}
 
-    <div class="choice alert">
-        <form action="{{ url_for('delete_tweet',post_id=post.id) }}" method="post">
-            <input type="submit" class="danger" value="Yes, delete this tweet"></input>
-        </form>
-        <div class="neutral"><a href="{{ url_for('dashboard') }}">No, Cancel this step</a></div>
-    </div>
+        <div class="sample">
+            <div class="userTweet">
+                <div class="meta_tweet">
+                    <img src="{{ url_for('static', filename='Images/Users/profile_pics/' + post.author.image_file) }}" style="width:50px; height: 50px; border-radius: 50%; margin-right: 10px; margin-top: 20px;" alt="">
+                    <div>
+                        <h3 style="margin-bottom: 0px;">@{{ post.author.username }}</h3>
+                        <p style="font-size: 12px;"><span style="font-weight: bold; color: dodgerblue;">Posted on </span>{{ post.stamp }}</p>
+                    </div>
+                </div>
+                <p style="margin-top: 5px;">{{ post.tweet }}</p>
+            </div>
+        </div>
+
+        <div class="choice alert">
+            <form action="{{ url_for('delete_tweet',post_id=post.id) }}" method="post">
+                <input type="submit" class="danger" value="Yes, delete this tweet"></input>
+            </form>
+            <div class="neutral"><a href="{{ url_for('dashboard') }}">No, Cancel this step</a></div>
+        </div>
+
+    {% elif retweet %}
+
+        <div class="sample">
+
+            <div class="userTweet">
+                <div class="meta_tweet">
+                    <img src="{{ url_for('static', filename='Images/Users/profile_pics/' + retweet.retwitter.image_file) }}" style="width:50px; height: 50px; border-radius: 50%; margin-right: 10px; margin-top: 20px;" alt="">
+                    <div>
+                        <h3 style="margin-bottom: 0px;">@{{ retweet.retwitter.username }}</h3>
+                        <p style="font-size: 12px;"><span style="font-weight: bold; color: dodgerblue;">Posted on </span>{{ retweet.retweet_stamp }}</p>
+                    </div>
+                </div>
+                <p style="margin-top: 5px;">{{ retweet.retweet_text }}</p>
+            </div>
+
+            {% if retweet.ori_post != None %}
+
+                <div class="retweet_post">
+                    <div class="userTweet">
+                        <div class="meta_tweet">
+                            <img src="{{ url_for('static', filename='Images/Users/profile_pics/' + retweet.ori_post.author.image_file) }}" style="width:50px; height: 50px; border-radius: 50%; margin-right: 10px; margin-top: 20px;" alt="">
+                            <div>
+                                <div style="display: flex;">
+                                    <h3 style="margin-bottom: 0px;"><a class="username" href="{{ url_for('viewProfile',account_id=retweet.ori_post.author.id) }}"> @{{ retweet.ori_post.author.username }}</a></h3>
+                                </div>
+                                <p style="font-size: 12px;"><span style="font-weight: bold; color: dodgerblue;">Posted on </span>{{ retweet.ori_post.stamp }}}</p>
+                            </div>
+                        </div>
+                        <p style="margin-top: 5px;">{{ retweet.ori_post.tweet }}</p>
+                    </div>
+                </div>
+
+            {% else %}
+
+                <div class="retweet_post">
+                    <div class="userTweet">
+                        <p style='font-style:italic; opacity:0.5'>This tweet was deleted by it's original author</p>
+                    </div>
+                </div>
+
+            {% endif %}
+
+
+        </div>
+        
+
+        <div class="choice alert">
+            <form action="{{ url_for('delete_retweeted_tweet',post_id=retweet.id) }}" method="post">
+                <input type="submit" class="danger" value="Yes, delete this tweet"></input>
+            </form>
+            <div class="neutral"><a href="{{ url_for('dashboard') }}">No, Cancel this step</a></div>
+        </div>
+
+    {% endif %}
 
 {% endblock %}

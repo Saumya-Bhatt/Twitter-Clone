@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Twitter</title>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='Images/twitter.svg') }}"/>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='Images/SVG/twitter.svg') }}"/>
     <link rel="stylesheet" href="{{ url_for('static',filename = 'mainPage.css') }}">
 </head>
 <body>
     <div class="container">
         <div class="navbar">
             <ul>
-                <li><img src="{{ url_for('static', filename='Images/twitter.svg') }}" alt="" style="width: 50px; height: auto; margin-bottom: 30px;"></li>
-                <li><img src="{{ url_for('static', filename='Images/user.svg') }}" alt=""><a href="{{ url_for('account') }}">Profile</a></li>
-                <li><img src="{{ url_for('static', filename='Images/home.svg') }}" alt=""><a href="{{ url_for('dashboard') }}">Home</a></li>
+                <li><img src="{{ url_for('static', filename='Images/SVG/twitter.svg') }}" alt="" style="width: 50px; height: auto; margin-bottom: 30px;"></li>
+                <li><img src="{{ url_for('static', filename='Images/SVG/user.svg') }}" alt=""><a href="{{ url_for('account') }}">Profile</a></li>
+                <li><img src="{{ url_for('static', filename='Images/SVG/home.svg') }}" alt=""><a href="{{ url_for('dashboard') }}">Home</a></li>
                 <!--<li><img src="https://www.flaticon.com/svg/static/icons/svg/3077/3077325.svg" alt=""><a href="#">Search</a></li>-->
-                <li><img src="{{ url_for('static', filename='Images/logout.svg') }}" alt=""><a href="{{ url_for('logout') }}">logout</a></li>
+                <li><img src="{{ url_for('static', filename='Images/SVG/logout.svg') }}" alt=""><a href="{{ url_for('logout') }}">logout</a></li>
             </ul>
         </div>
         <div class="posts">

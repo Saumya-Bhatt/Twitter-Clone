@@ -100,10 +100,14 @@ a :hover {
 }
 .greeting {
     border-bottom: 1px solid gray;
+    background-color: #16202c;
     width: 96.8%;
     padding-bottom: 20px;
     padding-left: 30px;
     font-size: 18px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
 }
 .tweet_pannel {
     padding: 20px 30px;

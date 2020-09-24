@@ -13,17 +13,22 @@ class User_mgmt(UserMixin, db.Model):
     password = db.Column(db.String(80),nullable=False)
     image_file = db.Column(db.String(20),nullable=False,default='default.jpg')
     bg_file = db.Column(db.String(20),nullable=False,default='default_bg.jpg')
-    bio = db.Column(db.String(100))
+    bio = db.Column(db.String(200))
     date = db.Column(db.String(20))
     bday = db.Column(db.String(10))
     posts = db.relationship('Post',backref='author',lazy=True)
+    retwitted = db.relationship('Retweet',backref='retwitter',lazy=True)
 
 class Post(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     tweet = db.Column(db.String(500),nullable=False)
     stamp = db.Column(db.String(20),nullable=False)
     user_id = db.Column(db.Integer,db.ForeignKey('user_mgmt.id'),nullable=False)
-    retweet_tweet = db.Column(db.String(500),default=None)
-    retweet_stamp = db.Column(db.String(20),default=None)
-    retweet_author = db.Column(db.String(20),default=None)
-    retweet_id = db.Column(db.Integer)
+    retweets = db.relationship('Retweet',backref='ori_post',lazy=True)
+
+class Retweet(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    tweet_id = db.Column(db.Integer,db.ForeignKey('post.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('user_mgmt.id'),nullable=False)
+    retweet_stamp = db.Column(db.String(20),nullable=False)
+    retweet_text = db.Column(db.String(500),nullable=False)
