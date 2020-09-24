@@ -40,9 +40,9 @@
             <a href="{{ url_for('retweet',post_id=post.id) }}">
                 <img src="{{ url_for('static', filename='Images/SVG/retweet.svg') }}" class="filter_white" alt="">
             </a>
-            <a href="{{ url_for('delete',post_id=post.id) }}">
+            <!--<a href="{{ url_for('delete',post_id=post.id) }}">
                 <img src="{{ url_for('static', filename='Images/SVG/delete.svg') }}" class="filter_white" alt="">
-            </a>
+            </a>-->
         </div>
 
     {% endfor %}
@@ -88,9 +88,9 @@
         <a href="{{ url_for('retweet',post_id=retweets.id) }}">
             <img src="{{ url_for('static', filename='Images/SVG/retweet.svg') }}" class="filter_white" alt="">
         </a>
-        <a href="{{ url_for('delete_retweet',post_id=retweets.id) }}">
+        <!--<a href="{{ url_for('delete_retweet',post_id=retweets.id) }}">
             <img src="{{ url_for('static', filename='Images/SVG/delete.svg') }}" class="filter_white" alt="">
-        </a>
+        </a>-->
 
         <br>
 

@@ -92,9 +92,9 @@ def dashboard():
         return redirect(url_for('dashboard'))
 
     page = request.args.get('page',1,type=int)
-    posts = Post.query.order_by(desc(Post.id)).paginate(page=page,per_page=5)
-    retweets = Retweet.query.order_by(desc(Retweet.id))
-    timeline = Timeline.query.order_by(desc(Timeline.id)).paginate(page=page,per_page=5)
+    timeline = Timeline.query\
+        .order_by(desc(Timeline.id))\
+        .paginate(page=page,per_page=5)
     return render_template('dashboard.html',name = current_user.username,tweet = user_tweet, timeline=timeline)
 
 
@@ -237,8 +237,8 @@ def viewProfile(account_id):
         return redirect(url_for('account'))
 
     get_user = User_mgmt.query.filter_by(id=account_id).first()
-    profile_pic = url_for('static',filename='profile_pics/' + get_user.image_file)
-    bg_pic = url_for('static',filename='bg_pics/' + get_user.bg_file)
+    profile_pic = url_for('static',filename='Images/Users/profile_pics/' + get_user.image_file)
+    bg_pic = url_for('static',filename='Images/Users/bg_pics/' + get_user.bg_file)
 
     page = request.args.get('page',1,type=int)
     all_posts = Post.query\
