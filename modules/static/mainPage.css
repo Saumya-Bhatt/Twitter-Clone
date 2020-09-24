@@ -32,6 +32,28 @@ a :hover {
     margin-bottom: 30px;
     font-size: 12px;
 }
+.pagination {
+    margin: 30px;
+}
+.pages {
+    background-color:#16202c;
+    padding: 3px 7px;
+    border: 1px solid rgba(29,161,242,1);
+    border-radius: 2px;
+}
+.pagination > a:hover {
+    background-color: rgba(29,161,242,1);
+    transition: 0.2s;
+    cursor: pointer;
+}
+.active_page {
+    background-color: rgba(29,161,242,1);
+    transition: 0.2s;
+    cursor: pointer; 
+    padding: 3px 7px;
+    border: 1px solid rgba(29,161,242,1);
+    border-radius: 2px;
+}
 .container {
     display: flex;
 }

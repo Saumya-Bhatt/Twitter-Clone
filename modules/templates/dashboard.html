@@ -11,7 +11,7 @@
 </div>
 
 <div class="timeline">
-    {% for post in timeline %}
+    {% for post in timeline.items %}
         {% if post.retweet_tweet != None %}
 
         <div class="tweet">
@@ -74,6 +74,21 @@
 
         {% endif %}
     {% endfor %}
+
+    <div class="pagination">
+        {% for page_num in timeline.iter_pages(left_edge=2,right_edge=2,left_current=1,right_current=2) %}
+            {% if page_num %}
+                {% if timeline.page == page_num %}
+                    <a class="active_page" href="{{ url_for('dashboard',page=page_num) }}">{{ page_num }}</a>
+                {% else %}
+                    <a class='pages' href="{{ url_for('dashboard',page=page_num) }}">{{ page_num }}</a>
+                {% endif %}
+            {% else %}
+                ...
+            {% endif %}
+        {% endfor %}
+    </div>
+
 </div>
 
 {% endblock %}

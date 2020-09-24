@@ -78,7 +78,8 @@ def dashboard():
         flash('The Tweet was added to your timeline!','success')
         return redirect(url_for('dashboard'))
 
-    posts = Post.query.order_by(desc(Post.id))
+    page = request.args.get('page',1,type=int)
+    posts = Post.query.order_by(desc(Post.id)).paginate(page=page,per_page=5)
     return render_template('dashboard.html',name = current_user.username,tweet = user_tweet, timeline=posts)
 
 
@@ -165,10 +166,16 @@ def delete_account(account_id):
 def viewProfile(account_id):
     if account_id == current_user.id:
         return redirect(url_for('account'))
+
     get_user = User_mgmt.query.filter_by(id=account_id).first()
     profile_pic = url_for('static',filename='profile_pics/' + get_user.image_file)
     bg_pic = url_for('static',filename='profile_pics/' + get_user.bg_file)
-    all_posts = Post.query.filter_by(user_id=get_user.id).order_by(desc(Post.id))
+
+    page = request.args.get('page',1,type=int)
+    all_posts = Post.query\
+        .filter_by(user_id=get_user.id)\
+        .order_by(desc(Post.id))\
+        .paginate(page=page,per_page=5)
 
     return render_template('view_profile.html',profile=profile_pic,background=bg_pic,timeline=all_posts,user=get_user)
 
