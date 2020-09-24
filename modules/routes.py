@@ -4,7 +4,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 from sqlalchemy import desc
 
 from modules import app,db
-from modules.modals import User_mgmt, Post, Retweet
+from modules.modals import User_mgmt, Post, Retweet, Timeline
 from modules.forms import Signup, Login, UpdateProfile, createTweet
 
 import datetime
@@ -83,13 +83,19 @@ def dashboard():
         post = Post(tweet=user_tweet.tweet.data, stamp=currentTime, author=current_user)
         db.session.add(post)
         db.session.commit()
+
+        to_timeline = Timeline(post_id=post.id)
+        db.session.add(to_timeline)
+        db.session.commit()
+
         flash('The Tweet was added to your timeline!','success')
         return redirect(url_for('dashboard'))
 
     page = request.args.get('page',1,type=int)
     posts = Post.query.order_by(desc(Post.id)).paginate(page=page,per_page=5)
     retweets = Retweet.query.order_by(desc(Retweet.id))
-    return render_template('dashboard.html',name = current_user.username,tweet = user_tweet, timeline=posts, retweets=retweets)
+    timeline = Timeline.query.order_by(desc(Timeline.id)).paginate(page=page,per_page=5)
+    return render_template('dashboard.html',name = current_user.username,tweet = user_tweet, timeline=timeline)
 
 
 def save_profile_picture(form_pic):
@@ -162,23 +168,38 @@ def delete_retweet(post_id):
 @app.route('/delete_post/<int:post_id>',methods=['POST'])
 @login_required
 def delete_tweet(post_id):
+
+    remove_from_timeline = Timeline.query.filter_by(post_id=post_id).first()
+    if remove_from_timeline.from_post.author != current_user:
+        abort(403)
+    db.session.delete(remove_from_timeline)
+    db.session.commit()
+
     post = Post.query.get_or_404(post_id)
     if post.author != current_user:
         abort(403)
     db.session.delete(post)
     db.session.commit()
+
     flash('Your tweet was deleted!','success')
     return redirect(url_for('dashboard'))
 
 @app.route('/delete_retweeted_post/<int:post_id>',methods=['POST'])
 @login_required
 def delete_retweeted_tweet(post_id):
+
+    remove_from_timeline = Timeline.query.filter_by(retweet_id=post_id).first()
+    if remove_from_timeline.from_retweet.retwitter != current_user:
+        abort(403)
+    db.session.delete(remove_from_timeline)
+    db.session.commit()
+
     retweet = Retweet.query.get_or_404(post_id)
     if retweet.retwitter != current_user:
         abort(403)
     db.session.delete(retweet)
-
     db.session.commit()
+
     flash('Your tweet was deleted!','success')
     return redirect(url_for('dashboard'))
 
@@ -191,9 +212,17 @@ def deactivate_confirm():
 @app.route('/account_deleted/<int:account_id>',methods=['POST'])
 @login_required
 def delete_account(account_id):
+
+    if account_id != current_user.id:
+        return abort(403)
+
+    all_retweets = Retweet.query.filter_by(user_id=current_user.id)
+    for i in all_retweets:
+        db.session.delete(i)
     all_post = Post.query.filter_by(user_id=current_user.id)
     for i in all_post:
         db.session.delete(i)
+
     del_acc = User_mgmt.query.filter_by(id=account_id).first()
     db.session.delete(del_acc)
     db.session.commit()
@@ -235,9 +264,12 @@ def retweet(post_id):
         x = datetime.datetime.now()
         currentTime = str(x.strftime("%d")) +" "+ str(x.strftime("%B")) +"'"+ str(x.strftime("%y")) + " "+ str(x.strftime("%I")) +":"+ str(x.strftime("%M")) +" "+ str(x.strftime("%p"))
 
-        #retweet = Post(tweet=new_tweet.tweet.data,stamp=currentTime, author=current_user,retweet_tweet=post.tweet,retweet_stamp=post.stamp,retweet_author=post.author.username,retweet_id=post.author.id)
         retweet = Retweet(tweet_id=post.id,user_id=current_user.id,retweet_stamp=currentTime,retweet_text=new_tweet.tweet.data)
         db.session.add(retweet)
+        db.session.commit()
+
+        to_timeline = Timeline(retweet_id=retweet.id)
+        db.session.add(to_timeline)
         db.session.commit()
 
         msg = 'You retweeted @'+post.author.username+"'s tweet!"
