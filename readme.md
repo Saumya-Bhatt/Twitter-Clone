@@ -55,6 +55,8 @@ The complete schema structure is given below:
 
 ![Database Schema](Extra/Images/database_schema.png)
 
+<iframe width="560" height="315" src='https://dbdiagram.io/embed/5f7185f53a78976d7b757403'> </iframe>
+
 <br><br>
 
 # Note
