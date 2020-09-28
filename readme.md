@@ -44,18 +44,22 @@ The Timelinr table keeps track of all the posts and the retweets that were creat
     Post.id --> {from_post} --> Timeline.post_id
     Retweet.id --> {from_retweet} --> Timeline.retweet_id
 
+<br>
+
+__NOTE :__ This portion is yet to be implemented <br>
 The Bookmark Table joins the User table with the Posts that the user saves. Relationship given as: <br>
 
     User.id --> {by_user} --> Bookmark.user_id
     Post.id --> {saved_post} --> Bookmark.post_id
 
+<br>
 The complete schema structure is given below:
 
 <br><br>
 
-![Database Schema](Extra/Images/database_schema.png)
+![Database Schema](Extra/Images/Twitter-Clone.png)
 
-<iframe width="560" height="315" src='https://dbdiagram.io/embed/5f7185f53a78976d7b757403'> </iframe>
+__To Access the database in more detail, go [here](https://dbdiagram.io/d/5f7185f53a78976d7b757403)__
 
 <br><br>
 
