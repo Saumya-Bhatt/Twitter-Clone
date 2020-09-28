@@ -55,7 +55,7 @@ The Bookmark Table joins the User table with the Posts that the user saves. Rela
 <br>
 The complete schema structure is given below:
 
-<br><br>
+<br>
 
 ![Database Schema](Extra/Images/Twitter-Clone.png)
 
