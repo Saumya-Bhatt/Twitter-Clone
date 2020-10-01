@@ -67,7 +67,7 @@ __To Access the database in more detail, go [here](https://dbdiagram.io/d/5f7185
 
 1. The database has been built on SQLite browser using SQLAlchemy so is not currently scalabe. But due to Flask's upwards compatibility, can be shifted to PostgreSQL whenever needed.
 2. The login management system hashshes the passwords and follows a strict cookie management and uses flask_login_manager to time the user sessions and hence provides intermediate level of protection.
-3. Built using a virtual environmen so can be easily downloaded and run on your local machine
+3. Built using a virtual environmen so can be easily downloaded and run on your local machine.
 
 <br>
 
@@ -81,6 +81,12 @@ __To Access the database in more detail, go [here](https://dbdiagram.io/d/5f7185
     4. To start the server, typr on the command line - `python run.py` . Will automatically start a server running @localhost:5000
 
 <br><br>
+
+## Test User Credentials
+
+1. Username : JaneDoe
+2. Email : test@test.com
+3. Password : Admin123
 
 # Things yet to do
 
