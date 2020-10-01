@@ -114,19 +114,38 @@ def save_bg_picture(form_pic):
     form_pic.save(picture_path)
     return picture_fn
 
+def delete_old_images(image, bg_image):
+    profile_pic_path = os.path.join(app.root_path, 'static/Images/Users/profile_pics', image)
+    bg_pic_path = os.path.join(app.root_path, 'static/Images/Users/bg_pics', bg_image)
+    if image!='default.jpg' and image!='':
+        try:
+            os.remove(profile_pic_path)
+        except OSError:
+            pass
+    if bg_image!='default_bg.jpg' and bg_image!='':
+        try:
+            os.remove(bg_pic_path)
+        except OSError:
+            pass
+
+
 @app.route('/UpdateInfo',methods=['GET','POST'])
 @login_required
 def updateInfo():
 
     update = UpdateProfile()
     if update.validate_on_submit():
+        old_img = ''
+        old_bg_img = ''
 
         if update.profile.data:
             profile_img = save_profile_picture(update.profile.data)
+            old_img = current_user.image_file
             current_user.image_file = profile_img
 
         if update.profile_bg.data:
             profile_bg_img = save_bg_picture(update.profile_bg.data)
+            old_bg_img = current_user.bg_file
             current_user.bg_file = profile_bg_img
 
         if update.bday.data:
@@ -136,6 +155,8 @@ def updateInfo():
         current_user.email = update.email.data
         current_user.bio = update.bio.data
         db.session.commit()
+
+        delete_old_images(old_img, old_bg_img)
 
         flash('Your account has been updated!','success')
         return redirect(url_for('account'))
