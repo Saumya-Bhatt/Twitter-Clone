@@ -80,13 +80,15 @@ __To Access the database in more detail, go [here](https://dbdiagram.io/d/5f7185
     3. In the commandline run `pipenv install` . It will automatically install all the required modules to run.
     4. To start the server, typr on the command line - `python run.py` . Will automatically start a server running @localhost:5000
 
-<br><br>
+<br>
 
 ## Test User Credentials
 
 1. Username : JaneDoe
 2. Email : test@test.com
 3. Password : Admin123
+
+<br><br>
 
 # Things yet to do
 
@@ -96,3 +98,8 @@ __To Access the database in more detail, go [here](https://dbdiagram.io/d/5f7185
 4. Add 'forgot password' functionality.
 5. Add sign-in option via Google OAuth.
 6. Add include images in Tweets.
+
+# Contributing
+
+Although this is not a fully fledged open source project, it never hurts to get some help :)
+Go through the Issues listed. Most of them are beginer friendly and should be good enough for your first PR!
