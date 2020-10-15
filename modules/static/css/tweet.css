@@ -1,0 +1,116 @@
+.tweet_pannel {
+    padding: 20px 30px;
+    background-color:  #16202c;
+    border: none;
+    color: white;
+    font-size: 17px;
+    width: 60vw;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+}
+.retweet_pannel {
+    padding: 20px 30px;
+    background-color:  #16202c;
+    border: none;
+    border-bottom: 1px solid gray;
+    color: white;
+    font-size: 17px;
+    width: 100%;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+}
+.retweet_post {
+    padding:2px 20px;
+    border-left:  5px solid rgba(29,161,242,1);
+    background-color: rgba(29,161,242,0.2);
+    margin: 10px 30px;
+}
+.submit_tweet {
+    border: none;
+    background-color: dodgerblue;
+    border-radius: 20px;
+    padding: 10px 20px;
+    color: white;
+    font-weight: bold;
+    margin: 30px;
+}
+.submit_tweet:hover {
+    background-color: royalblue;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.tweet {
+    border-bottom: 10px solid  rgba(29,161,242,0.2) ;
+    padding: 20px 30px;
+    display: flex;
+}
+.userTweet {
+    width: 100%;
+}
+.meta_tweet {
+    display: flex;
+}
+.image_upload {
+    background-color: #16202c;
+    border: none;
+}
+.image_upload:hover {
+    cursor: pointer;
+}
+.upload_window {
+    background-color:dodgerblue;
+    padding:50px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.files input {
+    outline: 2px dashed #92b0b3;
+    outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    padding: 120px 0px 85px 35%;
+    text-align: center !important;
+    margin: 0;
+    width: 100% !important;
+}
+.files input:focus{     
+    outline: 2px dashed #92b0b3;  outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear; border:1px solid #92b0b3;
+}
+.files{ 
+    position:relative
+}
+.files:after {  
+    pointer-events: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 50px;
+    right: 0;
+    height: 56px;
+    content: "";
+    background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);
+    display: block;
+    margin: 0 auto;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.color input{ 
+    background-color:rgba(29,161,242,0.2);
+}
+.files:before {
+    position: absolute;
+    bottom: 10px;
+    left: 0;  pointer-events: none;
+    width: 100%;
+    right: 0;
+    height: 57px;
+    content: " or drag it here. ";
+    display: block;
+    margin: 0 auto;
+    color: #2ea591;
+    font-weight: 600;
+    text-transform: capitalize;
+    text-align: center;
+}

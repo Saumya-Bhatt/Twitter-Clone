@@ -1,0 +1,112 @@
+
+.pagination {
+    margin: 30px;
+}
+.pages {
+    background-color:#16202c;
+    padding: 3px 7px;
+    border: 1px solid rgba(29,161,242,1);
+    border-radius: 2px;
+}
+.pagination > a:hover {
+    background-color: rgba(29,161,242,1);
+    transition: 0.2s;
+    cursor: pointer;
+}
+.active_page {
+    background-color: rgba(29,161,242,1);
+    transition: 0.2s;
+    cursor: pointer; 
+    padding: 3px 7px;
+    border: 1px solid rgba(29,161,242,1);
+    border-radius: 2px;
+}
+.container {
+    display: flex;
+}
+.navbar {
+    width: 20%;
+    padding-top: 100px;
+    text-align: right;
+    border-right: 1px solid gray;
+    height: 100vh;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+.navbar ul > li {
+    list-style: none;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-right: 70px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+.navbar ul > li :hover {
+    color: dodgerblue;
+    transition: 0.2s;
+}
+.navbar ul > li > img {
+    width: 25px;
+    height: auto;
+    margin-right: 15px;
+}
+.deactivate {
+    text-align: center;
+    color: tomato;
+}
+
+
+
+
+.posts {
+    border-right: 1px solid grey;
+    width: 70%;
+}
+.greeting {
+    border-bottom: 1px solid gray;
+    background-color: #16202c;
+    width: 100%;
+    padding: 20px 30px;
+    font-size: 18px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+.info {
+    padding: 20px;
+    width: 20%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+.notice {
+    padding: 20px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+.light {
+    font-size: 15px;
+    color: gray;
+}
+.username {
+    font-size: 0.9em;
+}
+.username:hover {
+    text-decoration: underline;
+}
+.thumbnail {
+    width:50px;
+    height: 50px;
+    border-radius:50%;
+    margin-right: 10px;
+    margin-top: 20px;
+}
+.filter_white {
+    filter: invert(100%) sepia(2%) saturate(0%) hue-rotate(165deg) brightness(103%) contrast(107%);
+    width: 20px; height: auto; margin-right: 30px;
+}

@@ -6,10 +6,20 @@ from sqlalchemy import desc
 from modules import app,db
 from modules.modals import User_mgmt, Post, Retweet, Timeline
 from modules.forms import Signup, Login, UpdateProfile, createTweet
+from modules.functions import save_bg_picture, save_profile_picture, delete_old_images
 
 import datetime
-import secrets
-import os
+
+
+
+
+
+
+
+#===================================================================================================================
+#===================================================================================================================
+#============================================ STARTER PAGE =========================================================
+#===================================================================================================================
 
 @app.route('/')
 @app.route('/home',methods=['GET','POST'])
@@ -51,6 +61,19 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+
+
+
+
+
+
+#===================================================================================================================
+#===================================================================================================================
+#============================================ ACCOUNTS PAGE ========================================================
+#===================================================================================================================
+
+
+
 @app.route('/account')
 @login_required
 def account():
@@ -69,64 +92,6 @@ def account():
 
     return render_template('account.html',profile=profile_pic,background=bg_pic,update=update,timeline=all_posts, retweets=retweets)
 
-    
-
-@app.route('/dashboard',methods=['GET','POST'])
-@login_required
-def dashboard():
-    user_tweet = createTweet()
-    if user_tweet.validate_on_submit():
-
-        x = datetime.datetime.now()
-        currentTime = str(x.strftime("%d")) +" "+ str(x.strftime("%B")) +"'"+ str(x.strftime("%y")) + " "+ str(x.strftime("%I")) +":"+ str(x.strftime("%M")) +" "+ str(x.strftime("%p"))
-
-        post = Post(tweet=user_tweet.tweet.data, stamp=currentTime, author=current_user)
-        db.session.add(post)
-        db.session.commit()
-
-        to_timeline = Timeline(post_id=post.id)
-        db.session.add(to_timeline)
-        db.session.commit()
-
-        flash('The Tweet was added to your timeline!','success')
-        return redirect(url_for('dashboard'))
-
-    page = request.args.get('page',1,type=int)
-    timeline = Timeline.query\
-        .order_by(desc(Timeline.id))\
-        .paginate(page=page,per_page=5)
-    return render_template('dashboard.html',name = current_user.username,tweet = user_tweet, timeline=timeline)
-
-
-def save_profile_picture(form_pic):
-    random_hex = secrets.token_hex(8)
-    f_name,f_ext = os.path.splitext(form_pic.filename)
-    picture_fn = random_hex + f_ext
-    picture_path = os.path.join(app.root_path, 'static/Images/Users/profile_pics', picture_fn)
-    form_pic.save(picture_path)
-    return picture_fn
-
-def save_bg_picture(form_pic):
-    random_hex = secrets.token_hex(8)
-    f_name,f_ext = os.path.splitext(form_pic.filename)
-    picture_fn = random_hex + f_ext
-    picture_path = os.path.join(app.root_path, 'static/Images/Users/bg_pics', picture_fn)
-    form_pic.save(picture_path)
-    return picture_fn
-
-def delete_old_images(image, bg_image):
-    profile_pic_path = os.path.join(app.root_path, 'static/Images/Users/profile_pics', image)
-    bg_pic_path = os.path.join(app.root_path, 'static/Images/Users/bg_pics', bg_image)
-    if image!='default.jpg' and image!='':
-        try:
-            os.remove(profile_pic_path)
-        except OSError:
-            pass
-    if bg_image!='default_bg.jpg' and bg_image!='':
-        try:
-            os.remove(bg_pic_path)
-        except OSError:
-            pass
 
 
 @app.route('/UpdateInfo',methods=['GET','POST'])
@@ -168,6 +133,138 @@ def updateInfo():
         update.bio.data = current_user.bio
 
     return render_template('updateProfile.html',change_form=update)
+
+
+#================================= DELETE ACTION=========================================================
+
+@app.route('/deactivate_confirmation')
+@login_required
+def deactivate_confirm():
+    return render_template('deact_conf.html')
+
+
+
+@app.route('/account_deleted/<int:account_id>',methods=['POST'])
+@login_required
+def delete_account(account_id):
+
+    if account_id != current_user.id:
+        return abort(403)
+
+    all_retweets = Retweet.query.filter_by(user_id=current_user.id)
+    for i in all_retweets:
+        db.session.delete(i)
+    all_post = Post.query.filter_by(user_id=current_user.id)
+    for i in all_post:
+        db.session.delete(i)
+
+    del_acc = User_mgmt.query.filter_by(id=account_id).first()
+    db.session.delete(del_acc)
+    db.session.commit()
+    return redirect(url_for('home'))
+
+
+
+
+
+
+
+#===================================================================================================================
+#===================================================================================================================
+#============================================ DASHBOARD PAGE =======================================================
+#===================================================================================================================
+
+
+
+@app.route('/dashboard',methods=['GET','POST'])
+@login_required
+def dashboard():
+    user_tweet = createTweet()
+    if user_tweet.validate_on_submit():
+
+        x = datetime.datetime.now()
+        currentTime = str(x.strftime("%d")) +" "+ str(x.strftime("%B")) +"'"+ str(x.strftime("%y")) + " "+ str(x.strftime("%I")) +":"+ str(x.strftime("%M")) +" "+ str(x.strftime("%p"))
+
+        post = Post(tweet=user_tweet.tweet.data, stamp=currentTime, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+
+        to_timeline = Timeline(post_id=post.id)
+        db.session.add(to_timeline)
+        db.session.commit()
+
+        flash('The Tweet was added to your timeline!','success')
+        return redirect(url_for('dashboard'))
+
+    page = request.args.get('page',1,type=int)
+    timeline = Timeline.query\
+        .order_by(desc(Timeline.id))\
+        .paginate(page=page,per_page=5)
+    return render_template('dashboard.html',name = current_user.username,tweet = user_tweet, timeline=timeline)
+
+
+
+@app.route('/view_profile/<int:account_id>',methods=['GET','POST'])
+@login_required
+def viewProfile(account_id):
+    if account_id == current_user.id:
+        return redirect(url_for('account'))
+
+    get_user = User_mgmt.query.filter_by(id=account_id).first()
+    profile_pic = url_for('static',filename='Images/Users/profile_pics/' + get_user.image_file)
+    bg_pic = url_for('static',filename='Images/Users/bg_pics/' + get_user.bg_file)
+
+    page = request.args.get('page',1,type=int)
+    all_posts = Post.query\
+        .filter_by(user_id=get_user.id)\
+        .order_by(desc(Post.id))\
+        .paginate(page=page,per_page=5)
+    retweets = Retweet.query\
+        .filter_by(user_id=get_user.id)\
+        .order_by(desc(Retweet.id))
+
+    return render_template('view_profile.html',profile=profile_pic,background=bg_pic,timeline=all_posts,user=get_user,retweets=retweets)
+
+
+
+
+
+
+#===================================================================================================================
+#===================================================================================================================
+#============================================ TWEET ACTION =========================================================
+#===================================================================================================================
+
+
+
+@app.route('/retweet/<int:post_id>',methods=['GET','POST'])
+@login_required
+def retweet(post_id):
+
+    post = Post.query.get_or_404(post_id)
+    new_tweet = createTweet()
+
+    if new_tweet.validate_on_submit():
+
+        x = datetime.datetime.now()
+        currentTime = str(x.strftime("%d")) +" "+ str(x.strftime("%B")) +"'"+ str(x.strftime("%y")) + " "+ str(x.strftime("%I")) +":"+ str(x.strftime("%M")) +" "+ str(x.strftime("%p"))
+
+        retweet = Retweet(tweet_id=post.id,user_id=current_user.id,retweet_stamp=currentTime,retweet_text=new_tweet.tweet.data)
+        db.session.add(retweet)
+        db.session.commit()
+
+        to_timeline = Timeline(retweet_id=retweet.id)
+        db.session.add(to_timeline)
+        db.session.commit()
+
+        msg = 'You retweeted @'+post.author.username+"'s tweet!"
+        flash(msg,'success')
+        return redirect(url_for('dashboard'))
+
+    return render_template('retweet.html',post=post, tweet=new_tweet)
+
+
+#================================= DELETE ACTION=========================================================
 
 
 @app.route('/delete/<int:post_id>')
@@ -223,78 +320,3 @@ def delete_retweeted_tweet(post_id):
 
     flash('Your tweet was deleted!','success')
     return redirect(url_for('dashboard'))
-
-
-@app.route('/deactivate_confirmation')
-@login_required
-def deactivate_confirm():
-    return render_template('deact_conf.html')
-
-@app.route('/account_deleted/<int:account_id>',methods=['POST'])
-@login_required
-def delete_account(account_id):
-
-    if account_id != current_user.id:
-        return abort(403)
-
-    all_retweets = Retweet.query.filter_by(user_id=current_user.id)
-    for i in all_retweets:
-        db.session.delete(i)
-    all_post = Post.query.filter_by(user_id=current_user.id)
-    for i in all_post:
-        db.session.delete(i)
-
-    del_acc = User_mgmt.query.filter_by(id=account_id).first()
-    db.session.delete(del_acc)
-    db.session.commit()
-    return redirect(url_for('home'))
-
-
-
-@app.route('/view_profile/<int:account_id>',methods=['GET','POST'])
-@login_required
-def viewProfile(account_id):
-    if account_id == current_user.id:
-        return redirect(url_for('account'))
-
-    get_user = User_mgmt.query.filter_by(id=account_id).first()
-    profile_pic = url_for('static',filename='Images/Users/profile_pics/' + get_user.image_file)
-    bg_pic = url_for('static',filename='Images/Users/bg_pics/' + get_user.bg_file)
-
-    page = request.args.get('page',1,type=int)
-    all_posts = Post.query\
-        .filter_by(user_id=get_user.id)\
-        .order_by(desc(Post.id))\
-        .paginate(page=page,per_page=5)
-    retweets = Retweet.query\
-        .filter_by(user_id=get_user.id)\
-        .order_by(desc(Retweet.id))
-
-    return render_template('view_profile.html',profile=profile_pic,background=bg_pic,timeline=all_posts,user=get_user,retweets=retweets)
-
-
-@app.route('/retweet/<int:post_id>',methods=['GET','POST'])
-@login_required
-def retweet(post_id):
-
-    post = Post.query.get_or_404(post_id)
-    new_tweet = createTweet()
-
-    if new_tweet.validate_on_submit():
-
-        x = datetime.datetime.now()
-        currentTime = str(x.strftime("%d")) +" "+ str(x.strftime("%B")) +"'"+ str(x.strftime("%y")) + " "+ str(x.strftime("%I")) +":"+ str(x.strftime("%M")) +" "+ str(x.strftime("%p"))
-
-        retweet = Retweet(tweet_id=post.id,user_id=current_user.id,retweet_stamp=currentTime,retweet_text=new_tweet.tweet.data)
-        db.session.add(retweet)
-        db.session.commit()
-
-        to_timeline = Timeline(retweet_id=retweet.id)
-        db.session.add(to_timeline)
-        db.session.commit()
-
-        msg = 'You retweeted @'+post.author.username+"'s tweet!"
-        flash(msg,'success')
-        return redirect(url_for('dashboard'))
-
-    return render_template('retweet.html',post=post, tweet=new_tweet)

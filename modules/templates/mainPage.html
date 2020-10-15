@@ -5,7 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Twitter</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='Images/SVG/twitter.svg') }}"/>
-    <link rel="stylesheet" href="{{ url_for('static',filename = 'mainPage.css') }}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/mainPage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/tweet.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/profile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/constant.css') }}">
+
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 </head>
 <body>
     <div class="container">
@@ -39,5 +48,18 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById('id01');
+        
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+    </script>
+
 </body>
 </html>

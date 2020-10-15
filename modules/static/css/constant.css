@@ -1,0 +1,74 @@
+body {
+    background-color: #16202c;
+    color: whitesmoke;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+    margin: 0px;
+    padding: none;
+}
+a {
+    color: whitesmoke;
+    text-decoration: none;
+}
+a :hover {
+    color: dodgerblue;
+}
+.flash {
+    color: rgba(29,161,242,0.5);
+    border: 1px solid rgba(29,161,242,0.5);
+    background-color: rgba(29,161,242,0.1);
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-weight: lighter;
+    width: fit-content;
+}
+.error {
+    border-radius: 20px;
+    border:  1px solid orange;
+    background-color: rgba(255,165,0,0.2);
+    color:  orange;
+    padding: 5px 15px;
+    width: fit-content;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 12px;
+}
+.alert {
+    padding: 20px 50px 0px 50px;
+}
+.alert ul > li {
+    margin: 10px;
+}
+.sample {
+    padding: 10px 30px;
+    border:  1px solid rgba(29,161,242,1);
+    background-color: rgba(29,161,242,0.2);
+    border-radius: 20px;
+    margin: 30px;
+}
+.choice {
+    display: flex;
+}
+.danger {
+    background-color: tomato;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin: auto 30px;
+    color: whitesmoke;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+}
+.danger:hover {
+    background-color: indianred;
+    transition: 0.2s;
+}
+.neutral {
+    background-color: dodgerblue;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin: auto 30px;
+}
+.neutral:hover {
+    background-color: royalblue;
+    transition: 0.2s;
+}
