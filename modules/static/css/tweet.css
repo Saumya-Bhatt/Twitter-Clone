@@ -30,7 +30,7 @@
     padding: 10px 20px;
     color: white;
     font-weight: bold;
-    margin: 30px;
+    margin: 5px 30px 15px;
 }
 .submit_tweet:hover {
     background-color: royalblue;
@@ -113,4 +113,14 @@
     font-weight: 600;
     text-transform: capitalize;
     text-align: center;
+}
+
+.tweet_image {
+    height: 200px;
+    width: auto;
+    border-radius: 10px;
+    margin: 10px auto 20px;
+}
+.tweet_image:hover {
+    cursor: pointer;
 }

@@ -96,8 +96,9 @@ __To Access the database in more detail, go [here](https://dbdiagram.io/d/5f7185
 2. Add ability to like posts
 3. Add bookmark posts to database.
 4. Add 'forgot password' functionality.
-5. Add sign-in option via Google OAuth.
-6. Add include images in Tweets.
+6. Optimizing storage if tweet images
+
+<br><br>
 
 # Contributing
 

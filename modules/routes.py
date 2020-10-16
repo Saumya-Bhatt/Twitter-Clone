@@ -6,7 +6,7 @@ from sqlalchemy import desc
 from modules import app,db
 from modules.modals import User_mgmt, Post, Retweet, Timeline
 from modules.forms import Signup, Login, UpdateProfile, createTweet
-from modules.functions import save_bg_picture, save_profile_picture, delete_old_images
+from modules.functions import save_bg_picture, save_profile_picture, delete_old_images, save_tweet_picture
 
 import datetime
 
@@ -185,7 +185,12 @@ def dashboard():
         x = datetime.datetime.now()
         currentTime = str(x.strftime("%d")) +" "+ str(x.strftime("%B")) +"'"+ str(x.strftime("%y")) + " "+ str(x.strftime("%I")) +":"+ str(x.strftime("%M")) +" "+ str(x.strftime("%p"))
 
-        post = Post(tweet=user_tweet.tweet.data, stamp=currentTime, author=current_user)
+        if user_tweet.tweet_img.data:
+            tweet_img = save_tweet_picture(user_tweet.tweet_img.data)
+            post = Post(tweet=user_tweet.tweet.data, stamp=currentTime, author=current_user, post_img=tweet_img)
+        else:
+            post = Post(tweet=user_tweet.tweet.data, stamp=currentTime, author=current_user)
+
         db.session.add(post)
         db.session.commit()
 

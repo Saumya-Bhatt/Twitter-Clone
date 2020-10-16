@@ -24,6 +24,7 @@ class Post(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     tweet = db.Column(db.String(500),nullable=False)
     stamp = db.Column(db.String(20),nullable=False)
+    post_img = db.Column(db.String(20))
     user_id = db.Column(db.Integer,db.ForeignKey('user_mgmt.id'),nullable=False)
 
     retweets = db.relationship('Retweet',backref='ori_post',lazy=True)

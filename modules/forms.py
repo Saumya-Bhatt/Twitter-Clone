@@ -30,6 +30,7 @@ class Login(FlaskForm):
 
 class createTweet(FlaskForm):
     tweet = TextAreaField('What is on your mind?',validators=[DataRequired(),Length(max=500)])
+    tweet_img = FileField('Include Image',validators=[FileAllowed(['jpg','png'])])
     submit = SubmitField('Tweet')
 
 class UpdateProfile(FlaskForm):

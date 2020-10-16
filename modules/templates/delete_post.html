@@ -19,6 +19,9 @@
                     </div>
                 </div>
                 <p style="margin-top: 5px;">{{ post.tweet }}</p>
+                {% if post.post_img %}
+                    <img src="{{ url_for('static', filename='Images/Tweets/' + post.post_img) }}" class="tweet_image" alt="">
+                {% endif %}
             </div>
         </div>
 
@@ -58,6 +61,9 @@
                             </div>
                         </div>
                         <p style="margin-top: 5px;">{{ retweet.ori_post.tweet }}</p>
+                        {% if retweet.ori_post.post_img %}
+                            <img src="{{ url_for('static', filename='Images/Tweets/' + retweet.ori_post.post_img) }}" class="tweet_image" alt="">
+                        {% endif %}
                     </div>
                 </div>
 

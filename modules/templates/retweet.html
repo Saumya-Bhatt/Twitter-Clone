@@ -16,6 +16,9 @@
                 </div>
             </div>
             <p style="margin-top: 5px;">{{ post.tweet }}</p>
+            {% if post.post_img %}
+                <img src="{{ url_for('static', filename='Images/Tweets/'+post.post_img) }}" class="tweet_image" alt="">
+            {% endif %}
         </div>
     </div>
 
