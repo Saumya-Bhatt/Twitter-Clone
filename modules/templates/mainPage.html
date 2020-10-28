@@ -25,6 +25,7 @@
                 <li><img src="{{ url_for('static', filename='Images/SVG/home.svg') }}" alt=""><a href="{{ url_for('dashboard') }}">Home</a></li>
                 <!--<li><img src="https://www.flaticon.com/svg/static/icons/svg/3077/3077325.svg" alt=""><a href="#">Search</a></li>-->
                 <li><img src="{{ url_for('static', filename='Images/SVG/logout.svg') }}" alt=""><a href="{{ url_for('logout') }}">logout</a></li>
+                <li><img src="{{ url_for('static', filename='Images/SVG/saved_posts.svg') }}" alt=""><a href="{{ url_for('bookmarks') }}">Saved</a></li>
             </ul>
         </div>
         <div class="posts">
@@ -49,7 +50,18 @@
         </div>
     </div>
 
-    <script>
+
+    <script language="javascript" type="text/javascript">
+        function chngimg() {
+            var img = document.getElementById('imgplus').src;
+            if (img.indexOf("{{ url_for('static', filename='Images/SVG/bookmark.svg') }}")!=-1) {
+                document.getElementById('imgplus').src  = "{{ url_for('static', filename='Images/SVG/bookmark_save.svg') }}";
+            }
+             else {
+               document.getElementById('imgplus').src = "{{ url_for('static', filename='Images/SVG/bookmark.svg') }}";
+           }
+    
+        }
         // Get the modal
         var modal = document.getElementById('id01');
         

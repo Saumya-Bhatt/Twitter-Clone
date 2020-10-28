@@ -110,3 +110,12 @@
     filter: invert(100%) sepia(2%) saturate(0%) hue-rotate(165deg) brightness(103%) contrast(107%);
     width: 20px; height: auto; margin-right: 30px;
 }
+
+.empty {
+    margin-top: 50px;
+    text-align: center;
+}
+.empty > img {
+    width: 200px;
+    height: auto;
+}

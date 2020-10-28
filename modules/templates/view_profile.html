@@ -46,6 +46,9 @@
                     </div>
                 {% endif %}
             </div>
+            <a href="{{ url_for('save_post',post_id=post.id) }}">
+                <img src="{{ url_for('static', filename='Images/SVG/bookmark.svg') }}" id="imgplus" onclick="chngimg()" class="filter_white" alt="">
+            </a>
             <a href="{{ url_for('retweet',post_id=post.id) }}">
                 <img src="{{ url_for('static', filename='Images/SVG/retweet.svg') }}" class="filter_white" alt="">
             </a>
@@ -82,6 +85,9 @@
                                     <a href="{{ url_for('retweet',post_id=retweets.ori_post.id) }}">
                                         <img src="{{ url_for('static', filename='Images/SVG/retweet.svg') }}" style="margin: 20px 30px 0px 30px;" class="filter_white" alt="">
                                     </a>
+                                    <a href="{{ url_for('save_post',post_id=row.from_retweet.ori_post.id) }}">
+                                        <img src="{{ url_for('static', filename='Images/SVG/bookmark.svg') }}" style="margin: 20px 30px 0px 0px;" class="filter_white" alt="">
+                                    </a>
                                 </div>
                                 <p style="font-size: 12px;"><span style="font-weight: bold; color: dodgerblue;">Posted on </span>{{ retweets.ori_post.stamp }}}</p>
                             </div>
@@ -103,6 +109,9 @@
             </div>
 
         </div>
+        <a href="{{ url_for('save_post',post_id=retweets.id) }}">
+            <img src="{{ url_for('static', filename='Images/SVG/bookmark.svg') }}" id="imgplus" onclick="chngimg()" class="filter_white" alt="">
+        </a>
         <a href="{{ url_for('retweet',post_id=retweets.id) }}">
             <img src="{{ url_for('static', filename='Images/SVG/retweet.svg') }}" class="filter_white" alt="">
         </a>

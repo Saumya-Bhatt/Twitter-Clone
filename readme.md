@@ -94,9 +94,7 @@ __To Access the database in more detail, go [here](https://dbdiagram.io/d/5f7185
 
 1. Add follow user/following functionality.
 2. Add ability to like posts
-3. Add bookmark posts to database.
-4. Add 'forgot password' functionality.
-6. Optimizing storage if tweet images
+3. Add 'forgot password' functionality.
 
 <br><br>
 

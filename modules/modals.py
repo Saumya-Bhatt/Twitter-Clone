@@ -19,6 +19,7 @@ class User_mgmt(UserMixin, db.Model):
 
     posts = db.relationship('Post',backref='author',lazy=True)
     retwitted = db.relationship('Retweet',backref='retwitter',lazy=True)
+    bookmarked = db.relationship('Bookmark',backref='saved_by',lazy=True)
 
 class Post(db.Model):
     id = db.Column(db.Integer,primary_key=True)
@@ -29,6 +30,7 @@ class Post(db.Model):
 
     retweets = db.relationship('Retweet',backref='ori_post',lazy=True)
     timeline = db.relationship('Timeline',backref='from_post',lazy=True)
+    bookmark = db.relationship('Bookmark',backref='saved_post',lazy=True)
 
 class Retweet(db.Model):
     id = db.Column(db.Integer,primary_key=True)
@@ -43,3 +45,8 @@ class Timeline(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     post_id = db.Column(db.Integer,db.ForeignKey('post.id'),default=None)
     retweet_id = db.Column(db.Integer,db.ForeignKey('retweet.id'),default=None)
+
+class Bookmark(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'),default=None)
+    user_id = db.Column(db.Integer, db.ForeignKey('user_mgmt.id'),default=None)

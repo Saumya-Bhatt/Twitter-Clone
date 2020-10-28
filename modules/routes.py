@@ -4,7 +4,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 from sqlalchemy import desc
 
 from modules import app,db
-from modules.modals import User_mgmt, Post, Retweet, Timeline
+from modules.modals import User_mgmt, Post, Retweet, Timeline, Bookmark
 from modules.forms import Signup, Login, UpdateProfile, createTweet
 from modules.functions import save_bg_picture, save_profile_picture, delete_old_images, save_tweet_picture
 
@@ -70,6 +70,7 @@ def logout():
 #===================================================================================================================
 #===================================================================================================================
 #============================================ ACCOUNTS PAGE ========================================================
+#===================================================================================================================
 #===================================================================================================================
 
 
@@ -173,6 +174,7 @@ def delete_account(account_id):
 #===================================================================================================================
 #============================================ DASHBOARD PAGE =======================================================
 #===================================================================================================================
+#===================================================================================================================
 
 
 
@@ -232,12 +234,47 @@ def viewProfile(account_id):
 
 
 
+@app.route('/bookmark/<int:post_id>',methods=['GET','POST'])
+def save_post(post_id):
+    saved_post = Bookmark(post_id=post_id,user_id=current_user.id)
+    db.session.add(saved_post)
+    db.session.commit()
+    flash('Saved tweet to bookmark!','success')
+    return redirect(url_for('dashboard'))
+
+
+@app.route('/unsaved_posts/<int:post_id>',methods=['GET','POST'])
+def unsave_post(post_id):
+    removed_post = Bookmark.query\
+        .filter_by(post_id=post_id)\
+        .first()
+    db.session.delete(removed_post)
+    db.session.commit()
+    flash('Post removed from bookmark!','success')
+    return redirect(url_for('dashboard'))
+
+
+@app.route('/saved_posts/')
+def bookmarks():
+    posts = Bookmark.query\
+        .filter_by(user_id=current_user.id)\
+        .order_by(desc(Bookmark.id))
+    empty = False
+    if posts == None:
+        empty = True
+    return render_template('bookmarks.html',posts=posts, empty=empty)
+
+
+
+
+
 
 
 
 #===================================================================================================================
 #===================================================================================================================
 #============================================ TWEET ACTION =========================================================
+#===================================================================================================================
 #===================================================================================================================
 
 
@@ -292,6 +329,12 @@ def delete_retweet(post_id):
 @login_required
 def delete_tweet(post_id):
 
+    post_bk = Bookmark.query.filter_by(post_id=post_id)
+    if post_bk != None:
+        for i in post_bk:
+            db.session.delete(i)
+            db.session.commit()
+
     remove_from_timeline = Timeline.query.filter_by(post_id=post_id).first()
     if remove_from_timeline.from_post.author != current_user:
         abort(403)
@@ -310,6 +353,12 @@ def delete_tweet(post_id):
 @app.route('/delete_retweeted_post/<int:post_id>',methods=['POST'])
 @login_required
 def delete_retweeted_tweet(post_id):
+
+    post_bk = Bookmark.query.filter_by(post_id=post_id)
+    if post_bk != None:
+        for i in post_bk:
+            db.session.delete(i)
+            db.session.commit()
 
     remove_from_timeline = Timeline.query.filter_by(retweet_id=post_id).first()
     if remove_from_timeline.from_retweet.retwitter != current_user:

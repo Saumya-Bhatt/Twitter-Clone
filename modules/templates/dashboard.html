@@ -11,7 +11,7 @@
             <button onclick="document.getElementById('id01').style.display='block'" class="image_upload">
                 <img src="{{ url_for('static', filename='Images/SVG/image.svg') }}" class="filter_white" alt="">
             </button>
-            <p style="opacity: 0.5; font-size: 12px; font-style: italic;">You can now also upload image with your tweet. First select an image from here, and then write your tweet.</p>
+            <p style="opacity: 0.5; font-size: 12px; font-style: italic;">Upload Image</p>
             <div id="id01" class="w3-modal" style="display: none;">
                 <div class='w3-modal-content upload_window' style="padding: 30px; background-color: dodgerblue;">
                   <div class="w3-container" style="background-color: dodgerblue;">
@@ -58,6 +58,9 @@
                         </div>
                     {% endif %}
                 </div>
+                <a href="{{ url_for('save_post',post_id=row.from_post.id) }}">
+                    <img src="{{ url_for('static', filename='Images/SVG/bookmark.svg') }}" id="imgplus" onclick="chngimg()" class="filter_white" alt="">
+                </a>
                 <a href="{{ url_for('retweet',post_id=row.from_post.id) }}">
                     <img src="{{ url_for('static', filename='Images/SVG/retweet.svg') }}" class="filter_white" alt="">
                 </a>
@@ -94,6 +97,9 @@
                                             <a href="{{ url_for('retweet',post_id=row.from_retweet.ori_post.id) }}">
                                                 <img src="{{ url_for('static', filename='Images/SVG/retweet.svg') }}" style="margin: 20px 30px 0px 30px;" class="filter_white" alt="">
                                             </a>
+                                            <a href="{{ url_for('save_post',post_id=row.from_retweet.ori_post.id) }}">
+                                                <img src="{{ url_for('static', filename='Images/SVG/bookmark.svg') }}" style="margin: 20px 30px 0px 0px;" class="filter_white" alt="">
+                                            </a>
                                         </div>
                                         <p style="font-size: 12px; margin-top: 5px;">
                                             <span style="font-weight: bold; color: dodgerblue;">Posted on </span>
@@ -118,6 +124,9 @@
                     </div>
         
                 </div>
+                <a href="{{ url_for('save_post',post_id=row.from_retweet.id) }}">
+                    <img src="{{ url_for('static', filename='Images/SVG/bookmark.svg') }}" id="imgplus" onclick="chngimg()" class="filter_white" alt="">
+                </a>
                 <a href="{{ url_for('retweet',post_id=row.from_retweet.id) }}">
                     <img src="{{ url_for('static', filename='Images/SVG/retweet.svg') }}" class="filter_white" alt="">
                 </a>
