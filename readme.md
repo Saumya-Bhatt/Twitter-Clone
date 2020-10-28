@@ -20,7 +20,8 @@ Have tried to keep the UI as similiar as that of Twitter. Is not mobile responsi
 Welcome login/signup page
 <br><br>
 
-![home page](Extra/Images/home_page.png)
+![home page](Extra/Images/home_page_1.png) <br><br>
+![home page](Extra/Images/home_page_2.png)
 Home page
 <br><br>
 
@@ -43,6 +44,11 @@ The Timelinr table keeps track of all the posts and the retweets that were creat
 
     Post.id --> {from_post} --> Timeline.post_id
     Retweet.id --> {from_retweet} --> Timeline.retweet_id
+
+The Bookmark keeps track of all the posts that the user saves as a bookmark, Their relationship is given as : <br>
+
+    Post.id --> {saved_post} --> Bookmark.post_id
+    User.id --> {saved_by} --> Bookmark.user_id
 
 <br>
 
