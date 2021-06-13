@@ -84,7 +84,7 @@ __To Access the database in more detail, go [here](https://dbdiagram.io/d/5f7185
     1. Download/clone this repository to your local machine
     2. In the project repository create a virtual environment - `pipenv shell` [Make sure you have pipenv and python installed on your machine]
     3. In the commandline run `pipenv install` . It will automatically install all the required modules to run.
-    4. To start the server, typr on the command line - `python run.py` . Will automatically start a server running @localhost:5000
+    4. To start the server, type on the command line - `python run.py`. Will automatically start a server running @localhost:5000
 
 <br>
 
