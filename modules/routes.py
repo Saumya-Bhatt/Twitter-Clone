@@ -34,7 +34,7 @@ def home():
 
     if form_sign.validate_on_submit():
 
-        hashed_password = generate_password_hash(form_sign.password.data, method='sha256')
+        hashed_password = generate_password_hash(form_sign.password.data, method='pbkdf2:sha256')
         x = datetime.datetime.now()
         creation = str(x.strftime("%B")) +" "+ str(x.strftime("%Y")) 
         new_user = User_mgmt(username=form_sign.username.data, email=form_sign.email.data, password=hashed_password, date=creation)
