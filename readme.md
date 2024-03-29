@@ -63,10 +63,16 @@ __To Access the database in more detail, go [here](https://dbdiagram.io/d/5f7185
 
 ### To run on your machine
 
-    1. Download/clone this repository to your local machine
-    2. Make sure you have the right python version setup. Install the dependencies using - `pip install -r requirements.txt`
-    3. Activate the virtual environment using - `./env/Scripts/activate`
-    4. Return to the root directory and start the server running @localhost:5000 using - `python run.py`
+1. Clone this repo
+2. Install Dependencies
+   ```
+   pip install -r requirements.txt
+   ```
+3. Provide the full root path of the file `database.db` over [here](https://github.com/Saumya-Bhatt/Twitter-Clone/blob/3566ceed18a5c78eb92b79bc8ef7314b2b5e9de0/modules/__init__.py#L7) if required
+4. Run the application
+   ```
+   python run.py
+   ```
 
 ### Test User Credentials
 
